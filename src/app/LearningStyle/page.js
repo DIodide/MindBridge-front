@@ -1,7 +1,7 @@
-import Component1 from "@/components/LearningStyle";
+import LearningStyleComponent from "@/components/LearningStyle";
 
 export default function LearningStyle() {
   return (
-    <Component1 />
+    <LearningStyleComponent />
   );
 }
