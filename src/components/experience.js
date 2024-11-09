@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button"
 import { ChevronRight, Check } from "lucide-react"
 import Link from 'next/link'
 
-export default function Component() {
+export default function Experience() {
   const [checklist, setChecklist] = useState([
     { id: 1, text: "Basic concepts", checked: false },
     { id: 2, text: "Key terminology", checked: false },
@@ -58,7 +58,7 @@ export default function Component() {
                 </div>
                 <label
                   htmlFor={`item-${item.id}`}
-                  className="text-lg font-semibold text-purple-200 transition-all duration-300 ease-in-out group-hover:text-purple-300"
+                  className={"text-lg font-semibold text-purple-200 transition-all duration-300 ease-in-out group-hover:text-purple-300"}
                 >
                   {item.text}
                 </label>
@@ -67,7 +67,7 @@ export default function Component() {
           </ul>
         </CardContent>
         <CardFooter className="flex justify-end mt-6">
-        <Link href = "/LearningStyle"> 
+        <Link href = "/learn"> 
           <Button 
             onClick={handleNextClick}
             className="bg-purple-600 hover:bg-purple-700 text-white font-semibold py-2 px-4 rounded-full transition-all duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-opacity-50"

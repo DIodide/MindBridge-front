@@ -1,8 +1,8 @@
 "use client"
-import Component from "@/components/ExperiencePage";
+import Experience from "@/components/experience";
 
 export default function ExperiencePage() {
   return (
-    <Component />
+    <Experience />
   );
 }
