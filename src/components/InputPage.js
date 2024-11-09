@@ -61,7 +61,8 @@ export default function InputPage() {
     try {
       const roadmapData = await generateTopics(goal);
       setTopicData(roadmapData);
-      router.push('/experience');
+      const url = `/experience?topics=${encodeURIComponent(JSON.stringify(roadmapData.topics))}`; // Encode the JSON string to make it URL-safe
+      router.push(url);
 
       
       // Pass the roadmapData to ExperiencePage (using a router or context)
