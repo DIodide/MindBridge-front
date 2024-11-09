@@ -1,23 +1,31 @@
 "use client";
 
 // VisGraph.js
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { DataSet, Network } from "vis-network/standalone/esm/vis-network";
+
+function removeNode(nodeId) {
+
+}
 
 const VisGraph = () => {
   const visJsRef = useRef(null);
 
+
   useEffect(() => {
     // Define the nodes and edges
-    const nodes = new DataSet([
-      { id: 1, label: "Node 1" },
-      { id: 2, label: "Node 2"  },
-      { id: 3, label: "Node 3" },
-      { id: 4, label: "Node 4" },
+    const nodesList = new DataSet([
+      { id: 1, label: "Node 1"  },
+      { id: 2, label: "Node 2" },
+      { id: 3, label: "Node 3"},
+      { id: 4, label: "Node 4"  },
       { id: 5, label: "Node 5" },
     ]);
 
-    const edges = new DataSet([
+
+
+
+    const edgesList = new DataSet([
       { from: 1, to: 2, length: 200},
       { from: 1, to: 3, length: 200 },
       { from: 2, to: 4, length: 200 },
@@ -60,19 +68,34 @@ const VisGraph = () => {
       },
     };
 
+    const data = {
+      nodes: nodesList,
+      edges: edgesList,
+    };
+
     // Initialize the network
-    const network = new Network(visJsRef.current, { nodes, edges }, options);
+    const network = new Network(visJsRef.current, data, options);
 
 
     // Register the click event listener
     network.on("click", function (event) {
       const { nodes, edges } = event;
 
+      console.log(event)
+
+
       if (nodes.length > 0) {
         console.log("Node clicked: " + nodes[0]);
-        network.deleteSelected();
+        // network.deleteSelected();
+        // nodesList.remove(nodes[0]);
+        nodesList.updateOnly({id: nodes[0], label: "updated"});
+
       } else if (edges.length > 0) {
         console.log("Edge clicked: " + edges[0]);
+        let newId = nodesList.max("id").id + 1;
+        console.log(newId);
+        nodesList.add({id: newId, label: 'Test'})
+        edgesList.add({id: newId, from: 1, to: newId})
       } else {
         console.log("Background clicked");
       }
@@ -85,7 +108,7 @@ const VisGraph = () => {
     };
   }, []);
 
-  return <div ref={visJsRef} style={{ height: "500px", width: "100%" }} />;
+  return <div ref={visJsRef} style={{ height: "500px", width: "500px" }} />;
 };
 
 const Main = () => {

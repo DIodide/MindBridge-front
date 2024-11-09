@@ -7,8 +7,9 @@ import { Label } from "@/components/ui/label"
 import { Button } from "@/components/ui/button"
 import { ChevronRight } from "lucide-react"
 import Link from 'next/link'
+import './ui/styles.css'
 
-const Component1 = () => {
+const Style = () => {
   const [preferences, setPreferences] = useState({
     visual: 3,
     auditory: 3,
@@ -52,17 +53,28 @@ const Component1 = () => {
                 step={1}
                 value={[value]}
                 onValueChange={(newValue) => handleSliderChange(newValue, key)}
-                className="w-full"
+                // className="w-full"
+                className="SliderTrack"
+                style={{ '--slider-fill': `${(value - 1) * 25}%` }}
               />
-              <style jsx>{`
+              {/* <style jsx>{`
                 #${key} .slider-track {
                   background: linear-gradient(to right, black, white);
+                }
+
+                #${key} .SliderTrack {
+                    position: relative;
+                    flex-grow: 1;
+                    background-color: grey;
                 }
                 #${key} .slider-thumb {
                   background-color: ${value === 1 ? 'black' : value === 5 ? 'white' : `rgba(255, 255, 255, ${(value - 1) / 4})`};
                   border: 2px solid purple;
                 }
-              `}</style>
+
+                
+              `}</style> */}
+
               <div className="flex justify-between text-sm text-purple-400">
                 <span>1</span>
                 <span>2</span>
@@ -74,7 +86,7 @@ const Component1 = () => {
           ))}
         </CardContent>
         <CardFooter className="flex justify-end mt-6">
-        <Link href = "/LearningPath">
+        <Link href = "/map">
           <Button 
             onClick={handleNextClick}
             className="bg-purple-600 hover:bg-purple-700 text-white font-semibold py-2 px-4 rounded-full transition-all duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-opacity-50"
@@ -89,4 +101,4 @@ const Component1 = () => {
   )
 }
 
-export default Component1
+export default Style
