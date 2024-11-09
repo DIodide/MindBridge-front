@@ -53,7 +53,7 @@ export default function InputPage() {
           <div className="flex flex-col items-center space-y-6">
           <TextField fullWidth label = "What do you want to learn today?" variant="outlined" color="secondary" focused sx={{input:{color: 'white'}}} value ={goal} onChange={handlechange} />
           
-          <Button variant = "contained" color="secondary" size="large" href="/ExperiencePage"
+          <Button variant = "contained" color="secondary" size="large" href="/experience"
             onClick={() => {
               sendGoal()
             }}
