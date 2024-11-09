@@ -55,7 +55,7 @@ export default function TitleCard() {
           Connect your thoughts, expand your horizons, and bridge the gap between imagination and reality.
         </motion.p>
         
-        <Link href="/InputPage">
+        <Link href="/start">
         <motion.button
           className="px-8 py-3 text-lg font-semibold text-white bg-purple-600 rounded-full shadow-lg transition-all duration-300 ease-in-out transform hover:scale-105 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-opacity-50"
           initial={{ opacity: 0, y: 20 }}

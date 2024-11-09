@@ -1,13 +1,22 @@
+"use client"
 import { TextField } from "@mui/material";
-// import { Textarea, Button } from "./Textarea";
+import { Button } from "@mui/material";
+import { useState } from "react";
+import { Configuration, OpenAIApi } from 'openai';
+import { parse } from 'dotenv';
 
 
 export default function InputPage() {
   const topics = ["Front-end Development", "React", "APIs", "Python"]
+  const [goal, setGoal] = useState("")
+  const handlechange = (event) => {
+    setGoal(event.target.value)
+  }
+
+
 
   return (
-    <div className="min-h-screen bg-gray-900 text-white p-8 relative overflow-hidden">
-      {/* Background with more vivid singular lines */}
+    <div className="min-h-screen bg-black text-white p-8 relative overflow-hidden">
       <div className="absolute inset-0 z-0">
         <svg
           className="w-full h-full"
@@ -32,17 +41,17 @@ export default function InputPage() {
         </svg>
       </div>
 
-      <div className="relative z-10 max-w-4xl mx-auto space-y-8">
+      <div className="relative z-10 max-w-4xl mx-auto space-y-6">
         <h1 className="text-4xl font-bold text-center text-purple-400">Learning Hub</h1>
-        
-          <TextField fullWidth label = "What do you want to learn today?" variant="filled" color="secondary" focused />
-         
-       
-
-        {/* <Button className="w-full bg-purple-600 hover:bg-purple-700 text-white">
-          Let&apos;s Go
-        </Button> */}
-
+          <div className="flex flex-col items-center space-y-6">
+          <TextField fullWidth label = "What do you want to learn today?" variant="outlined" color="secondary" focused sx={{input:{color: 'white'}}} value ={goal} onChange={handlechange} />
+          
+          <Button variant = "contained" color="secondary" size="large" href="/ExperiencePage"
+            onClick={() => {
+              console.log(goal)
+            }}
+          >{"Let's Go!"}</Button>
+          </div>
         <div>
           <h2 className="text-2xl font-semibold mb-4 text-purple-300">Popular Topics</h2>
           <div className="grid grid-cols-2 gap-4">
@@ -50,6 +59,9 @@ export default function InputPage() {
               <div 
                 key={index} 
                 className="p-4 bg-gray-800 bg-opacity-50 rounded-lg border border-purple-500 hover:bg-purple-700 transition-colors"
+                onClick={() => {
+                  setGoal("I want to learn about " + topic)
+                }}
               >
                 {topic}
               </div>
