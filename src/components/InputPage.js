@@ -11,6 +11,14 @@ export default function InputPage() {
   const handlechange = (event) => {
     setGoal(event.target.value)
   }
+  const sendGoal = async () => {
+    try {
+      const response = await axios.post("http://localhost:3000/generateGoal",{goal: goal})
+      console.log(response.data)
+    } catch (error) {
+      console.log(error)
+    }
+    }
 
 
 
