@@ -8,6 +8,7 @@ import { ChevronRight, Check } from "lucide-react"
 import Link from 'next/link'
 import { useEffect } from 'react'
 import { useSearchParams } from 'next/navigation'; // For Next.js App Router
+import { generateRoadmap } from "@/app/actions";
 
 import useTopicsStore from '../store/topicsStore';
 
@@ -18,6 +19,7 @@ export default function Experience() {
 
   useEffect(() => {
     const topics = searchParams.get('topics');
+    const goal = searchParams.get('goal');
     if (topics) {
       const parsedTopics = JSON.parse(topics);
       console.log("The useEfffect topics are!!! " + JSON.stringify(parsedTopics));
@@ -39,9 +41,12 @@ export default function Experience() {
     ))
   }
 
-  const handleNextClick = () => {
+  const handleNextClick = async () => {
     console.log("Next button clicked")
-    console.log("Checked items:", checklist.filter(item => item.checked))
+    const checkedItems = checklist.filter(item => item.checked);
+    const selectedTopics = checkedItems.map(item => item.text);
+    console.log("Checked items:", selectedTopics)
+    const roadmapData = await generateRoadmap(selectedTopics); // string[]
   }
 
   return (
