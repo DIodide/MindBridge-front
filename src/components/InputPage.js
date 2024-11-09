@@ -15,7 +15,6 @@ export default function InputPage() {
 
   return (
     <div className="min-h-screen bg-black text-white p-8 relative overflow-hidden">
-      {/* Background with more vivid singular lines */}
       <div className="absolute inset-0 z-0">
         <svg
           className="w-full h-full"
