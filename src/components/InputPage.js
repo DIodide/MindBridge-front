@@ -58,6 +58,9 @@ export default function InputPage() {
               <div 
                 key={index} 
                 className="p-4 bg-gray-800 bg-opacity-50 rounded-lg border border-purple-500 hover:bg-purple-700 transition-colors"
+                onClick={() => {
+                  setGoal("I want to learn about " + topic)
+                }}
               >
                 {topic}
               </div>
