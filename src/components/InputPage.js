@@ -2,13 +2,13 @@
 import { TextField } from "@mui/material";
 import { Button } from "@mui/material";
 import { useState } from "react";
-import { Configuration, OpenAIApi } from 'openai';
-import { parse } from 'dotenv';
-
+import { motion } from "framer-motion"
+import { generateTopics } from "@/app/actions";
 
 export default function InputPage() {
   const topics = ["Front-end Development", "React", "APIs", "Python"]
   const [goal, setGoal] = useState("")
+  const [topicData, setTopicData] = useState(null);
   const handlechange = (event) => {
     setGoal(event.target.value)
   }
@@ -17,38 +17,54 @@ export default function InputPage() {
 
   return (
     <div className="min-h-screen bg-black text-white p-8 relative overflow-hidden">
-      <div className="absolute inset-0 z-0">
+            <div className="absolute inset-0 z-0">
         <svg
           className="w-full h-full"
           viewBox="0 0 1000 1000"
           xmlns="http://www.w3.org/2000/svg"
         >
-          <defs>
+          <defs> 
             <linearGradient id="lineGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor="#6A0DAD" stopOpacity="0.4" />
-              <stop offset="100%" stopColor="#9932CC" stopOpacity="0.4" />
+              <stop offset="0%" stopColor="#6A0DAD" stopOpacity="0.4" /> 
+              <stop offset="100%" stopColor="#9932CC" stopOpacity="0.4" /> 
             </linearGradient>
           </defs>
+
           {[...Array(10)].map((_, i) => (
-            <path
+            <motion.path
               key={i}
               d={`M${-200 + i * 150},1000 Q${300 + i * 100},${500 - i * 50} ${1200 - i * 100},0`}
               stroke="url(#lineGradient)"
               strokeWidth="3"
               fill="none"
+              initial={{ pathLength: 0 }}
+              animate={{ pathLength: 1 }}
+              transition={{ duration: 2, ease: "easeInOut", delay: i * 0.1 }}
             />
           ))}
         </svg>
       </div>
 
-      <div className="relative z-10 max-w-4xl mx-auto space-y-6">
+      <motion.div className="relative z-10 max-w-4xl mx-auto space-y-6"
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.8, delay: 0.2 }}>
         <h1 className="text-4xl font-bold text-center text-purple-400">Learning Hub</h1>
           <div className="flex flex-col items-center space-y-6">
           <TextField fullWidth label = "What do you want to learn today?" variant="outlined" color="secondary" focused sx={{input:{color: 'white'}}} value ={goal} onChange={handlechange} />
           
-          <Button variant = "contained" color="secondary" size="large" href="/ExperiencePage"
-            onClick={() => {
-              console.log(goal)
+          <Button variant = "contained" color="secondary" size="large"
+            onClick={async () => {
+    try {
+      const roadmapData = await generateTopics(goal);
+      
+      // Pass the roadmapData to ExperiencePage (using a router or context)
+      // ... (See step 4 for examples)
+
+    } catch (error) {
+      console.error('Error sending ChatGPT request:', error);
+      // Handle errors appropriately (e.g., display an error message)
+    }
             }}
           >{"Let's Go!"}</Button>
           </div>
@@ -68,7 +84,7 @@ export default function InputPage() {
             ))}
           </div>
         </div>
-      </div>
+      </motion.div>
     </div>
   )
 }
