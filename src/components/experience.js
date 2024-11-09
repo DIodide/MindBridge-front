@@ -52,13 +52,13 @@ export default function Experience() {
                     className="w-6 h-6 border-2 border-purple-400 rounded-md text-purple-600 transition-all duration-300 ease-in-out focus:ring-2 focus:ring-purple-500 focus:ring-opacity-50"
                   />
                   {item.checked && (
-                    <Check className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-purple-400 w-4 h-4" />
+                    <Check className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-purple-400 w-4 h-4 pointer-events-none" />
                   )}
-                  <div className="absolute inset-0 bg-purple-600 rounded-md transform scale-0 transition-transform duration-300 ease-in-out group-hover:scale-75 opacity-25"></div>
+                  <div className="absolute inset-0 bg-purple-600 rounded-md transform scale-0 transition-transform duration-300 ease-in-out group-hover:scale-75 opacity-25 pointer-events-none"></div>
                 </div>
                 <label
                   htmlFor={`item-${item.id}`}
-                  className={"text-lg font-semibold text-purple-200 transition-all duration-300 ease-in-out group-hover:text-purple-300"}
+                  className={"text-lg font-semibold text-purple-200 transition-all duration-300 ease-in-out group-hover:text-purple-300 cursor-pointer"}
                 >
                   {item.text}
                 </label>
@@ -67,14 +67,14 @@ export default function Experience() {
           </ul>
         </CardContent>
         <CardFooter className="flex justify-end mt-6">
-        <Link href = "/learn"> 
-          <Button 
-            onClick={handleNextClick}
-            className="bg-purple-600 hover:bg-purple-700 text-white font-semibold py-2 px-4 rounded-full transition-all duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-opacity-50"
-          >
-            Next
-            <ChevronRight className="ml-2 h-4 w-4" />
-          </Button>
+          <Link href="/learn"> 
+            <Button 
+              onClick={handleNextClick}
+              className="bg-purple-600 hover:bg-purple-700 text-white font-semibold py-2 px-4 rounded-full transition-all duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-opacity-50"
+            >
+              Next
+              <ChevronRight className="ml-2 h-4 w-4" />
+            </Button>
           </Link>
         </CardFooter>
       </Card>
