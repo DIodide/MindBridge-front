@@ -1,5 +1,4 @@
 'use client'
-import { TypewriterEffectSmooth } from "../ui/typewriter-effect";
 import { motion } from 'framer-motion'
 import { useState } from 'react'
 import Link from 'next/link'
@@ -7,47 +6,6 @@ import Link from 'next/link'
 
 export default function TitleCard() {
   const [isHovered, setIsHovered] = useState(false)
-  const tagLine = [
-    {
-      text: "Connect"
-    },
-    {
-      text: "Your"
-    },
-    {
-      text: "Thoughts"
-    },
-    {
-      text: "Expand"
-    },
-    {
-      text: "Your"
-    },
-    {
-      text: "Horizons"
-    },
-    {
-      text: "Bridge"
-    },
-    {
-      text: "The"
-    },
-    {
-      text: "Gap"
-    },
-    {
-      text: "Between"
-    },
-    {
-      text: "Imagination"
-    },
-    {
-      text: "And"
-    },
-    {
-      text: "Reality"
-    }
-  ];
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-black p-4">
@@ -88,8 +46,15 @@ export default function TitleCard() {
         >
           Mind Bridge
         </motion.h1>
-    
-        <TypewriterEffectSmooth words={tagLine}  />  
+        <motion.p
+          className="text-xl md:text-2xl mb-8 text-purple-100"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.6 }}
+        >
+          Connect your thoughts, expand your horizons, and bridge the gap between imagination and reality.
+        </motion.p>
+        
         <Link href="/">
         <motion.button
           className="px-8 py-3 text-lg font-semibold text-white bg-purple-600 rounded-full shadow-lg transition-all duration-300 ease-in-out transform hover:scale-105 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-opacity-50"

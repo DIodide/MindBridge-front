@@ -1,10 +1,11 @@
 import Image from "next/image";
-import TitleCard from "./landing/page";
+import TitleCard from "@/components/TitleCard";
+
 
 export default function Home() {
   return (
     <div>
-      <TitleCard />
+      <TitleCard title="MindBridge"/>
     </div>
   );
 }
