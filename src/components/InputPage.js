@@ -2,13 +2,12 @@
 import { TextField } from "@mui/material";
 import { Button } from "@mui/material";
 import { useState } from "react";
-import { Configuration, OpenAIApi } from 'openai';
-import { parse } from 'dotenv';
-
+import { generateTopics } from "@/app/actions";
 
 export default function InputPage() {
   const topics = ["Front-end Development", "React", "APIs", "Python"]
   const [goal, setGoal] = useState("")
+  const [topicData, setTopicData] = useState(null);
   const handlechange = (event) => {
     setGoal(event.target.value)
   }
@@ -46,9 +45,18 @@ export default function InputPage() {
           <div className="flex flex-col items-center space-y-6">
           <TextField fullWidth label = "What do you want to learn today?" variant="outlined" color="secondary" focused sx={{input:{color: 'white'}}} value ={goal} onChange={handlechange} />
           
-          <Button variant = "contained" color="secondary" size="large" href="/ExperiencePage"
-            onClick={() => {
-              console.log(goal)
+          <Button variant = "contained" color="secondary" size="large"
+            onClick={async () => {
+    try {
+      const roadmapData = await generateTopics(goal);
+      
+      // Pass the roadmapData to ExperiencePage (using a router or context)
+      // ... (See step 4 for examples)
+
+    } catch (error) {
+      console.error('Error sending ChatGPT request:', error);
+      // Handle errors appropriately (e.g., display an error message)
+    }
             }}
           >{"Let's Go!"}</Button>
           </div>
