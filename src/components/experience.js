@@ -13,15 +13,14 @@ import useTopicsStore from '../store/topicsStore';
 export default function Experience() {
   const topics = useTopicsStore((state) => state.topics);
   console.log("EXPERIENCE TOPICS: " + JSON.stringify(topics));
-
-
-  const [checklist, setChecklist] = useState([
-    { id: 1, text: "Basic concepts", checked: false },
-    { id: 2, text: "Key terminology", checked: false },
-    { id: 3, text: "Historical context", checked: false },
-    { id: 4, text: "Main theories", checked: false },
-    { id: 5, text: "Recent developments", checked: false },
-  ])
+  console.log("topics: ", topics)
+  const [checklist, setChecklist] = useState(
+    topics.map((topic, index) => ({
+      id: index + 1, // Assign unique IDs
+      text: topic,    // Set text from topics array
+      checked: false,
+    }))
+  );
 
   const handleCheckboxChange = (id) => {
     setChecklist(checklist.map(item => 
