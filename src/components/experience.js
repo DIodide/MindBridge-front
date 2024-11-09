@@ -6,12 +6,22 @@ import { Card, CardContent, CardHeader, CardTitle, CardFooter } from "@/componen
 import { Button } from "@/components/ui/button"
 import { ChevronRight, Check } from "lucide-react"
 import Link from 'next/link'
-
+import { useEffect } from 'react'
+import { useSearchParams } from 'next/navigation'; // For Next.js App Router
 import useTopicsStore from '../store/topicsStore';
 
 export default function Experience() {
+  const searchParams = useSearchParams();
   const topics = useTopicsStore((state) => state.topics);
   console.log("EXPERIENCE TOPICS: " + JSON.stringify(topics));
+
+  useEffect(() => {
+    const topics = searchParams.get('topics');
+    if (topics) {
+      const parsedTopics = JSON.parse(topics);
+      console.log("The useEfffect topics are!!! " + JSON.stringify(parsedTopics));
+    }
+  }, [searchParams]);
 
 
   const [checklist, setChecklist] = useState([
