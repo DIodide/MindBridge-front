@@ -2,8 +2,7 @@
 import { TextField } from "@mui/material";
 import { Button } from "@mui/material";
 import { useState } from "react";
-import { Configuration, OpenAIApi } from 'openai';
-import { parse } from 'dotenv';
+
 
 
 export default function InputPage() {
@@ -12,6 +11,14 @@ export default function InputPage() {
   const handlechange = (event) => {
     setGoal(event.target.value)
   }
+  const sendGoal = async () => {
+    try {
+      const response = await axios.post("http://localhost:3000/generateGoal",{goal: goal})
+      console.log(response.data)
+    } catch (error) {
+      console.log(error)
+    }
+    }
 
 
 
@@ -48,7 +55,7 @@ export default function InputPage() {
           
           <Button variant = "contained" color="secondary" size="large" href="/ExperiencePage"
             onClick={() => {
-              console.log(goal)
+              sendGoal()
             }}
           >{"Let's Go!"}</Button>
           </div>
