@@ -8,6 +8,7 @@ import { ChevronRight, Check } from "lucide-react"
 import Link from 'next/link'
 import { useEffect } from 'react'
 import { useSearchParams } from 'next/navigation'; // For Next.js App Router
+
 import useTopicsStore from '../store/topicsStore';
 
 export default function Experience() {
