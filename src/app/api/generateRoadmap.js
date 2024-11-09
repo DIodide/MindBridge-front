@@ -9,7 +9,10 @@ const openai = new OpenAI();
 const Node = z.object({
   id: z.string(),             // Unique identifier for each node
   label: z.string(),          // Label or name of the node
-  size: z.number().optional(), // Optional size property for visualization
+    size: z.number().optional(), // Optional size property for visualization
+    topic: z.string().optional(), // Optional topic property for categorization
+    color: z.string().optional(), // Optional color property for styling
+    shortDescription: z.string().optional(), // Optional short description
 });
 
 const Edge = z.object({
