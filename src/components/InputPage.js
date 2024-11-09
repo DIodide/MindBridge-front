@@ -2,6 +2,8 @@
 import { TextField } from "@mui/material";
 import { Button } from "@mui/material";
 import { useState } from "react";
+import { Configuration, OpenAIApi } from 'openai';
+import { parse } from 'dotenv';
 
 
 export default function InputPage() {
