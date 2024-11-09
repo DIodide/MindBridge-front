@@ -7,7 +7,13 @@ import { Button } from "@/components/ui/button"
 import { ChevronRight, Check } from "lucide-react"
 import Link from 'next/link'
 
+import useTopicsStore from '../store/topicsStore';
+
 export default function Experience() {
+  const topics = useTopicsStore((state) => state.topics);
+  console.log("EXPERIENCE TOPICS: " + JSON.stringify(topics));
+
+
   const [checklist, setChecklist] = useState([
     { id: 1, text: "Basic concepts", checked: false },
     { id: 2, text: "Key terminology", checked: false },

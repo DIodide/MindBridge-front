@@ -38,7 +38,8 @@ const RoadmapSchema = z.object({
 });
 
 export async function generateTopics(goal) {
-  try {
+    try {
+      const store = useTopicsStore.getState();
     const response = await openai.chat.completions.create({
       model: 'gpt-4o-mini', // Or a more suitable model // change to gpt-4o for pitch
         messages: [
