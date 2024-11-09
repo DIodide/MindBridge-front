@@ -4,11 +4,14 @@ import { Button } from "@mui/material";
 import { useState } from "react";
 import { motion } from "framer-motion"
 import { generateTopics } from "@/app/actions";
+import { useRouter } from "next/navigation";
+
 
 export default function InputPage() {
   const topics = ["Front-end Development", "React", "APIs", "Python"]
   const [goal, setGoal] = useState("")
   const [topicData, setTopicData] = useState(null);
+  const router = useRouter();
   const handlechange = (event) => {
     setGoal(event.target.value)
   }
@@ -57,6 +60,9 @@ export default function InputPage() {
             onClick={async () => {
     try {
       const roadmapData = await generateTopics(goal);
+      setTopicData(roadmapData);
+      router.push('/experience');
+
       
       // Pass the roadmapData to ExperiencePage (using a router or context)
       // ... (See step 4 for examples)
