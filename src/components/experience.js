@@ -14,24 +14,24 @@ import useTopicsStore from '../store/topicsStore';
 export default function Experience() {
   const searchParams = useSearchParams();
   const topics = useTopicsStore((state) => state.topics);
+  const [checklist, setChecklist] = useState([]);
   console.log("EXPERIENCE TOPICS: " + JSON.stringify(topics));
   console.log("topics: ", topics)  
   useEffect(() => {
     const topics = searchParams.get('topics');
-    if (topics) {
-      const parsedTopics = JSON.parse(topics);
-      console.log("The useEfffect topics are!!! " + JSON.stringify(parsedTopics));
-    }
+    const topicsList = topics? JSON.parse(topics) : [];
+    
+    
+    setChecklist(
+      topicsList.map((topic,index) => ({
+        id: index + 1,
+        text: topic,
+        checked: false,
+      }))
+    )
   }, [searchParams]);
 
 
-  const [checklist, setChecklist] = useState(
-    topics.map((topic, index) => ({
-      id: index + 1, // Assign unique IDs
-      text: topic,    // Set text from topics array
-      checked: false,
-    }))
-  );
 
   const handleCheckboxChange = (id) => {
     setChecklist(checklist.map(item => 
