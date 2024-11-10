@@ -20,6 +20,39 @@ const initialContent = [
   
 ]
 
+const updateContent = [
+    {
+        type: 'text',
+        title: 'Introduction',
+        completed: false,
+        bookmarked: false,
+        content: 'Write a React component that implements a counter with increment and decrement buttons.'
+    },
+    
+    {
+    type: 'video',
+    title: 'Tutorial',
+    completed: false,
+    bookmarked: false,
+    content: 'https://example.com/intro-to-react-video'
+},
+  {
+    type: 'article',
+    title: 'Example',
+    completed: false,
+    bookmarked: false,
+    content: 'Write a React component that implements a counter with increment and decrement buttons.'
+  },
+
+  {
+    type: 'article',
+    title: 'Learn More',
+    completed: false,
+    bookmarked: false,
+    content: 'Write a React component that implements a counter with increment and decrement buttons.'
+  } 
+]
+
 
 // // ROAD MAP OBJ
 // let roadmap = {
