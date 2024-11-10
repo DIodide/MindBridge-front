@@ -8,7 +8,7 @@ import { useRouter } from "next/navigation";
 
 
 export default function InputPage() {
-  const topics = ["Front-end Development", "React", "APIs", "Python"]
+  const topics = ["Front-end Development", "Physics", "Calculus", "Python", "Piano", "Artifical Intelligence", "Data Science" ,"Spanish"]
   const [goal, setGoal] = useState("")
   const [topicData, setTopicData] = useState(null);
   const router = useRouter();
@@ -48,7 +48,7 @@ export default function InputPage() {
         </svg>
       </div>
 
-      <motion.div className="relative z-10 max-w-4xl mx-auto space-y-6"
+      <motion.div className="relative z-10 max-w-4xl mx-auto mt-10 space-y-6"
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.8, delay: 0.2 }}>
