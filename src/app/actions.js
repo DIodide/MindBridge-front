@@ -46,7 +46,7 @@ const NodeInfoSchema = z.object({
   learnMoreInformation: z.string(),
 })
 
-export async function generateTopics(goal, maxTopics=10) {
+export async function generateTopics(goal, maxTopics=12) {
   try {
       (await cookies()).set('goal', JSON.stringify(goal))
     const response = await openai.chat.completions.create({
