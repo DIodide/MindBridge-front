@@ -1,3 +1,41 @@
+# Our Product
+
+Our app creates AI-powered, personalized educational guides for any topic. Provided with a request defining the user’s goal and feedback identifying their prior experiences and learning techniques, MindBridge generates a custom interactive roadmap with clear summaries, tutorials, and practice problems for each phase. With an easy-to-follow step-by-step guide, it is easier than ever to attain one’s goals, hone existing skills, or cultivate new ones.  The combination of trackable, achievable steps, enables user productivity by reducing the time spent searching for resources that match your current skill level or appeal to your learning style. Additionally, visualizing progress improves motivation and consistency, and subdividing the problem into smaller, actionable steps makes the problem more approachable. Only with us can you get this detailed level of customization with our virtually limitless number of topics.
+
+
+On the front end, the learner begins by entering a topic that they would like to learn more about in the text area. They are then routed to a short section asking for prior knowledge and later their learning style. Finally, they are given the roadmap for their goal, and when they click a step it provides a description, an example, and additional resources.
+
+![Screenshot 2024-11-10 014609.png](https://cdn.dorahacks.io/static/files/1931541cf06fc18b468d3214413932d5.png)
+Topic input
+
+![Screenshot 2024-11-10 014737.png](https://cdn.dorahacks.io/static/files/193154272573ace2280d00d424cace5a.png)
+Experience input
+
+![Screenshot 2024-11-10 024851.png](Uploading...)![Screenshot 2024-11-10 024851.png](https://cdn.dorahacks.io/static/files/1931545a6580706ada0680c4631823cc.png)
+Roadmap
+
+# Backend
+Our backend begins by taking the topic the user wants to learn about and it uses the OpenAI API to get the topics seen in the checklist screen. The backend then sends in the prompt along with the context of what they already know and their learning style to generate the information to be displayed in the roadmap. Additionally, when the user clicks on a step in the roadmap our backend calls the AI API again, with more detailed information about the step and how they may achieve/work towards it, which is then formatted and displayed on the sidebar of the roadmap page.
+
+
+Our app creates AI-powered, personalized educational guides for any topic. Provided with a request defining the user’s goal and feedback identifying their prior experiences and learning techniques, MindBridge generates a custom interactive roadmap with clear summaries, tutorials, and practice problems for each phase. With an easy-to-follow step-by-step guide, it is easier than ever to attain one’s goals, hone existing skills, or cultivate new ones.  The combination of trackable, achievable steps, enables user productivity by reducing the time spent searching for resources that match your current skill level or appeal to your learning style. Additionally, visualizing progress improves motivation and consistency, and subdividing the problem into smaller, actionable steps makes the problem more approachable. Only with us can you get this detailed level of customization with our virtually limitless number of topics.
+
+
+On the front end, the learner begins by entering a topic that they would like to learn more about in the text area. They are then routed to a short section asking for prior knowledge and later their learning style. Finally, they are given the roadmap for their goal, and when they click a step it provides a description, an example, and additional resources.
+
+![Screenshot 2024-11-10 014609.png](https://cdn.dorahacks.io/static/files/1931541cf06fc18b468d3214413932d5.png)
+Topic input
+
+![Screenshot 2024-11-10 014737.png](https://cdn.dorahacks.io/static/files/193154272573ace2280d00d424cace5a.png)
+Experience input
+
+![Screenshot 2024-11-10 024851.png](Uploading...)![Screenshot 2024-11-10 024851.png](https://cdn.dorahacks.io/static/files/1931545a6580706ada0680c4631823cc.png)
+Roadmap
+
+# Backend
+Our backend begins by taking the topic the user wants to learn about and it uses the OpenAI API to get the topics seen in the checklist screen. The backend then sends in the prompt along with the context of what they already know and their learning style to generate the information to be displayed in the roadmap. Additionally, when the user clicks on a step in the roadmap our backend calls the AI API again, with more detailed information about the step and how they may achieve/work towards it, which is then formatted and displayed on the sidebar of the roadmap page.
+
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
@@ -15,8 +53,6 @@ bun dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
