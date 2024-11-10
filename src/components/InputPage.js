@@ -54,7 +54,7 @@ export default function InputPage() {
       transition={{ duration: 0.8, delay: 0.2 }}>
         <h1 className="text-4xl font-bold text-center text-purple-400">Learning Hub</h1>
           <div className="flex flex-col items-center space-y-6">
-          <TextField fullWidth label = "What do you want to learn today?" variant="outlined"  placeholder="Your goal" color="secondary" focused sx={{input:{color: 'white'}}} value ={goal} onChange={handlechange} />
+          <TextField fullWidth label = "What do you want to learn today?" variant="outlined"  placeholder="I want to learn..." color="secondary" focused sx={{input:{color: 'white'}}} value ={goal} onChange={handlechange} />
           
           <Button variant = "contained" color="secondary" size="large"
             onClick={async () => {
