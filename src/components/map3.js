@@ -324,7 +324,7 @@ const LearningDashboard = () => {
               {renderContent()}
             </CardContent>
 
-            {isActiveNodeIdValid(activeNodeID) &&
+            {true &&
         
             <CardFooter className="flex justify-between mt-4">
             <Button
