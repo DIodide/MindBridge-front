@@ -8,8 +8,11 @@ import { Button } from "@/components/ui/button"
 import { ChevronRight } from "lucide-react"
 import Link from 'next/link'
 import './ui/styles.css'
+import { generateRoadmap } from '@/app/actions'
+import { useRouter } from 'next/navigation'
 
 const Style = () => {
+  const router = useRouter()
   const [preferences, setPreferences] = useState({
     visual: 3,
     auditory: 3,
@@ -21,9 +24,11 @@ const Style = () => {
     setPreferences(prev => ({ ...prev, [key]: value[0] }))
   }
 
-  const handleNextClick = () => {
+  const handleNextClick = async () => {
     console.log("Generate Roadmap clicked", preferences)
     // Add your roadmap generation logic here
+    await generateRoadmap(preferences)
+    router.push('map')
   }
 
   return (

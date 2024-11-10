@@ -8,21 +8,25 @@ import { ChevronRight, Check } from "lucide-react"
 import Link from 'next/link'
 import { useEffect } from 'react'
 import { useSearchParams } from 'next/navigation'; // For Next.js App Router
-import { generateRoadmap } from "@/app/actions";
-
+import { generateRoadmap, setTopics } from "@/app/actions";
+import { useRouter } from 'next/navigation'
 import useTopicsStore from '../store/topicsStore';
 import { motion } from 'framer-motion';
+import { getTopics, getGoal } from '@/app/actions'
+
 
 export default function Experience() {
-  const searchParams = useSearchParams();
-  const topics = useTopicsStore((state) => state.topics);
+  const router = useRouter();
   const [checklist, setChecklist] = useState([]);
-  console.log("EXPERIENCE TOPICS: " + JSON.stringify(topics));
-  console.log("topics: ", topics)  
+  let goal;
+  let topics;
   useEffect(() => {
-    const topics = searchParams.get('topics');
-    const topicsList = topics? JSON.parse(topics) : [];
-    
+
+    async function getCookies() {
+      topics = await getTopics()
+      
+      const topicsList = topics.topics;
+    console.log(topicsList)
     
     setChecklist(
       topicsList.map((topic,index) => ({
@@ -31,9 +35,13 @@ export default function Experience() {
         checked: false,
       }))
     )
-  }, [searchParams]);
+    }
+    
+    getCookies()
+    
+  }, []);
 
-  const goal = searchParams.get('goal');
+  
 
   const handleCheckboxChange = (id) => {
     setChecklist(checklist.map(item => 
@@ -47,7 +55,9 @@ export default function Experience() {
     const checkedItems = checklist.filter(item => item.checked);
     const selectedTopics = checkedItems.map(item => item.text);
     console.log("Checked items:", selectedTopics)
-    const roadmapData = await generateRoadmap(selectedTopics, goal); // string[]
+    await setTopics(selectedTopics);
+    router.push('/learn')
+    //const roadmapData = await generateRoadmap(selectedTopics); // string[]
   }
 
   return (
