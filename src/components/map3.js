@@ -5,6 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardFooter } from "@/componen
 import { Button } from "@/components/ui/button"
 import { ChevronLeft, ChevronRight, Undo, Edit3, Link, Maximize2, Check, SkipForward, Bookmark } from "lucide-react"
 import VisGraph from './visGraph'
+import { DataSet, Network } from "vis-network/standalone/esm/vis-network";
 const tags = ['JavaScript', 'React', 'Node.js']
 
 
@@ -42,28 +43,154 @@ const initialContent = [
   }
 ]
 
+
+// ROAD MAP OBJ
+const roadmap = {
+  title: "Learning Roadmap",
+  description: "A roadmap for learning topics to reach a specific goal.",
+  nodes: [
+    {
+      topicName: "Introduction to Programming",
+      shortDescription: "Basics of programming and algorithms.",
+      id: 1,
+      completed: false,
+      skipped: false
+    },
+    {
+      topicName: "JavaScript Fundamentals",
+      shortDescription: "Introduction to JavaScript syntax and concepts.",
+      id: 2,
+      completed: true,
+      skipped: false
+    },
+    {
+      topicName: "React Basics",
+      shortDescription: "Learn the basics of building user interfaces with React.",
+      id: 3,
+      completed: false,
+      skipped: true
+    },
+    {
+      topicName: "Data Structures",
+      shortDescription: "Understanding essential data structures in programming.",
+      id: 4,
+      completed: false,
+      skipped: false
+    }
+  ],
+  edges: [
+    {
+      source: 1,
+      target: 2
+    },
+    {
+      source: 2,
+      target: 3
+    },
+    {
+      source: 3,
+      target: 4
+    }
+  ]
+};
+
+
+    // Define the nodes and edges
+    // const nodesList = new DataSet(roadmap.nodes);
+
+    const nodesList = new DataSet(
+      roadmap.nodes.map(node => {
+        let nodeColor;
+    
+        // Use if-else to determine the color based on the 'completed' and 'skipepd' status
+        if (node.completed) {
+          nodeColor = 'green';  // Node is completed
+        } else if(node.skipped) {
+          nodeColor = 'orange';  // Node is skipped
+        } else {
+          nodeColor = 'blue';   // Node is not completed
+        }
+    
+        return {
+          id: node.id,
+          label: node.topicName,  // Set label to the topic name
+          title: node.shortDescription,  // Set title as the description for hover
+          color: nodeColor  // Use the nodeColor variable for the color property
+        };
+      })
+    );
+
+
+
+    const edgesList = new DataSet([
+      { from: 1, to: 2, length: 200},
+      { from: 1, to: 3, length: 200 },
+      { from: 2, to: 4, length: 200 },
+      { from: 2, to: 5, length: 200 },
+    ]);
+
+
 const LearningDashboard = () => {
   const [isCollapsed, setIsCollapsed] = useState(false)
   const [isFullscreen, setIsFullscreen] = useState(false)
   const [content, setContent] = useState(initialContent)
   const [showBookmarks, setShowBookmarks] = useState(false)
   const [bookmarkedContent, setBookmarkedContent] = useState([])
-  const [nodeId, setNodeId] = useState(1)
+  let activeNodeID = null;
 
+  const onClickSetActiveNodeID = (nodeId) => {
+    activeNodeID = nodeId;
+  }
+
+  const toggleCollapse = () => setIsCollapsed(!isCollapsed)
+  const toggleFullscreen = () => setIsFullscreen(!isFullscreen)
+  
   const toggleFullscreenCollapse = () => {
     setIsFullscreen(!isFullscreen)
     setIsCollapsed(!isCollapsed)
   }
-  const handleComplete = (index) => {
-    const newContent = [...content]
-    newContent[index].completed = true
-    setContent(newContent)
+  const handleComplete = () => {
+    if(activeNodeID) {
+        // Find the node with the given nodeId and update its skipped value to true
+        const node = roadmap.nodes.find(node => node.id === activeNodeID);
+        
+        if (node) {
+          node.completed = true;  // Set skipped to true for the found node
+
+          // Update the node in the vis.DataSet (assuming nodes is a vis.DataSet object)
+          nodesList.update({
+            id: activeNodeID,  // Ensure we're updating the correct node
+            completed: true,  // Set skipped to true
+            color: 'green'  // Optionally, change the color to indicate the node is skipped
+          });
+
+          console.log(`Node ${activeNodeID} marked as skipped.`);
+        } else {
+          console.log(`Node with id ${activeNodeID} not found.`);
+        }
+    }
   }
 
   const handleSkip = (index) => {
-    const newContent = [...content]
-    newContent.push(newContent.splice(index, 1)[0])
-    setContent(newContent)
+    if(activeNodeID) {
+      // Find the node with the given nodeId and update its skipped value to true
+      const node = roadmap.nodes.find(node => node.id === activeNodeID);
+      
+      if (node) {
+        node.skipped = true;  // Set skipped to true for the found node
+
+        // Update the node in the vis.DataSet (assuming nodes is a vis.DataSet object)
+        nodesList.update({
+          id: activeNodeID,  // Ensure we're updating the correct node
+          skipped: true,  // Set skipped to true
+          color: 'orange'  // Optionally, change the color to indicate the node is skipped
+        });
+
+        console.log(`Node ${activeNodeID} marked as skipped.`);
+      } else {
+        console.log(`Node with id ${activeNodeID} not found.`);
+      }
+    }
   }
 
   const handleBookmark = (index) => {
@@ -83,16 +210,7 @@ const LearningDashboard = () => {
   }
 
 
-  {/* const updateContent = (index, newContent) => {
-    const updatedContent = [...content]
-    updatedContent[index] = { ...updatedContent[index], ...newContent }
-    setContent(updatedContent)
-  } */}
 
-  const updateContent = (nodeId) => {
-
-    console.log(nodeId + "qwer")
-  }
 
   const renderContent = () => {
     const contentToRender = showBookmarks ? content.filter(item => item.bookmarked) : content
@@ -178,13 +296,13 @@ const LearningDashboard = () => {
             <CardFooter className="flex justify-between mt-4">
                 <Button 
                 
-                  onClick={() => updateContent(nodeId === 1 ? 2 : 1)} 
+                  onClick={() => handleComplete()} 
                   className="bg-green-600 hover:bg-green-700"
                 >
-                  {nodeId === 1 ? 'Complete' : 'Previous Section'}
+                  Complete
                 </Button>
                 <Button 
-                  onClick={() => console.log("Skip All clicked")} 
+                  onClick={() => handleSkip()} 
                   className="bg-yellow-600 hover:bg-yellow-700"
                 >
                   Skip All
@@ -198,7 +316,7 @@ const LearningDashboard = () => {
           {!isCollapsed && (
             <>
               <h1 className="text-4xl font-bold text-purple-300 mb-4">Main Learning Area</h1>
-              <VisGraph  onClickFunction={updateContent}>
+              <VisGraph  onClickFunction={onClickSetActiveNodeID} roadmap={roadmap} nodesList={nodesList} edgesList={edgesList}> 
 
               </VisGraph>
             </>

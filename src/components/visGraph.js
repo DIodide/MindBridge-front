@@ -28,94 +28,15 @@ function markNodeAsSkipped(nodeId) {
   }
 }
 
-const roadmap = {
-  title: "Learning Roadmap",
-  description: "A roadmap for learning topics to reach a specific goal.",
-  nodes: [
-    {
-      topicName: "Introduction to Programming",
-      shortDescription: "Basics of programming and algorithms.",
-      id: 1,
-      completed: false,
-      skipped: false
-    },
-    {
-      topicName: "JavaScript Fundamentals",
-      shortDescription: "Introduction to JavaScript syntax and concepts.",
-      id: 2,
-      completed: true,
-      skipped: false
-    },
-    {
-      topicName: "React Basics",
-      shortDescription: "Learn the basics of building user interfaces with React.",
-      id: 3,
-      completed: false,
-      skipped: true
-    },
-    {
-      topicName: "Data Structures",
-      shortDescription: "Understanding essential data structures in programming.",
-      id: 4,
-      completed: false,
-      skipped: false
-    }
-  ],
-  edges: [
-    {
-      source: 1,
-      target: 2
-    },
-    {
-      source: 2,
-      target: 3
-    },
-    {
-      source: 3,
-      target: 4
-    }
-  ]
-};
 
 
-const VisGraph = ( {onClickFunction} ) => {
+
+const VisGraph = ( {onClickFunction, roadmap, nodesList, edgesList} ) => {
   const visJsRef = useRef(null);
 
 
   useEffect(() => {
-    // Define the nodes and edges
-    // const nodesList = new DataSet(roadmap.nodes);
 
-    const nodesList = new DataSet(
-      roadmap.nodes.map(node => {
-        let nodeColor;
-    
-        // Use if-else to determine the color based on the 'completed' and 'skipepd' status
-        if (node.completed) {
-          nodeColor = 'green';  // Node is completed
-        } else if(node.skipped) {
-          nodeColor = 'orange';  // Node is skipped
-        } else {
-          nodeColor = 'blue';   // Node is not completed
-        }
-    
-        return {
-          id: node.id,
-          label: node.topicName,  // Set label to the topic name
-          title: node.shortDescription,  // Set title as the description for hover
-          color: nodeColor  // Use the nodeColor variable for the color property
-        };
-      })
-    );
-
-
-
-    const edgesList = new DataSet([
-      { from: 1, to: 2, length: 200},
-      { from: 1, to: 3, length: 200 },
-      { from: 2, to: 4, length: 200 },
-      { from: 2, to: 5, length: 200 },
-    ]);
 
     // Define the network options
     const options = {
