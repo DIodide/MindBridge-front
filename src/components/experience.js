@@ -6,21 +6,34 @@ import { Card, CardContent, CardHeader, CardTitle, CardFooter } from "@/componen
 import { Button } from "@/components/ui/button"
 import { ChevronRight, Check } from "lucide-react"
 import Link from 'next/link'
+import { useEffect } from 'react'
+import { useSearchParams } from 'next/navigation'; // For Next.js App Router
+import { generateRoadmap } from "@/app/actions";
 
 import useTopicsStore from '../store/topicsStore';
+import { motion } from 'framer-motion';
 
 export default function Experience() {
+  const searchParams = useSearchParams();
   const topics = useTopicsStore((state) => state.topics);
+  const [checklist, setChecklist] = useState([]);
   console.log("EXPERIENCE TOPICS: " + JSON.stringify(topics));
+  console.log("topics: ", topics)  
+  useEffect(() => {
+    const topics = searchParams.get('topics');
+    const topicsList = topics? JSON.parse(topics) : [];
+    
+    
+    setChecklist(
+      topicsList.map((topic,index) => ({
+        id: index + 1,
+        text: topic,
+        checked: false,
+      }))
+    )
+  }, [searchParams]);
 
-
-  const [checklist, setChecklist] = useState([
-    { id: 1, text: "Basic concepts", checked: false },
-    { id: 2, text: "Key terminology", checked: false },
-    { id: 3, text: "Historical context", checked: false },
-    { id: 4, text: "Main theories", checked: false },
-    { id: 5, text: "Recent developments", checked: false },
-  ])
+  const goal = searchParams.get('goal');
 
   const handleCheckboxChange = (id) => {
     setChecklist(checklist.map(item => 
@@ -28,26 +41,34 @@ export default function Experience() {
     ))
   }
 
-  const handleNextClick = () => {
+  const handleNextClick = async () => {
     console.log("Next button clicked")
-    console.log("Checked items:", checklist.filter(item => item.checked))
+    
+    const checkedItems = checklist.filter(item => item.checked);
+    const selectedTopics = checkedItems.map(item => item.text);
+    console.log("Checked items:", selectedTopics)
+    const roadmapData = await generateRoadmap(selectedTopics, goal); // string[]
   }
 
   return (
-    <div className="min-h-screen bg-black p-4 flex items-center justify-center relative overflow-hidden">
+    <motion.div
+    initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.8, delay: 0.2 }}
+     className="min-h-screen bg-black p-10 flex items-center justify-center relative overflow-hidden">
       <div className="absolute inset-0 opacity-20">
         <div className="absolute top-0 -left-4 w-72 h-72 bg-purple-500 rounded-full mix-blend-multiply filter blur-xl animate-blob"></div>
         <div className="absolute top-0 -right-4 w-72 h-72 bg-purple-300 rounded-full mix-blend-multiply filter blur-xl animate-blob animation-delay-2000"></div>
         <div className="absolute -bottom-8 left-20 w-72 h-72 bg-purple-400 rounded-full mix-blend-multiply filter blur-xl animate-blob animation-delay-4000"></div>
       </div>
-      <Card className="w-full max-w-md mx-auto bg-gray-900 border-purple-500 border-2 rounded-2xl shadow-2xl transition-all duration-300 ease-in-out hover:shadow-purple-500/20 relative z-10">
+      <Card className="w-full max-w-2xl mx-auto bg-gray-900 border-purple-500 border-2 rounded-2xl shadow-2xl transition-all duration-300 ease-in-out hover:shadow-purple-500/20 relative z-10">
         <CardHeader className="border-b border-purple-500 pb-4">
           <CardTitle className="text-2xl font-extrabold text-center text-purple-300 tracking-tight">
             What do you already know about this topic?
           </CardTitle>
         </CardHeader>
         <CardContent className="mt-6">
-          <ul className="space-y-5">
+          <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {checklist.map(item => (
               <li key={item.id} className="flex items-center space-x-3 group">
                 <div className="relative">
@@ -73,7 +94,6 @@ export default function Experience() {
           </ul>
         </CardContent>
         <CardFooter className="flex justify-end mt-6">
-          <Link href="/learn"> 
             <Button 
               onClick={handleNextClick}
               className="bg-purple-600 hover:bg-purple-700 text-white font-semibold py-2 px-4 rounded-full transition-all duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-opacity-50"
@@ -81,9 +101,8 @@ export default function Experience() {
               Next
               <ChevronRight className="ml-2 h-4 w-4" />
             </Button>
-          </Link>
         </CardFooter>
       </Card>
-    </div>
+    </motion.div>
   )
 }

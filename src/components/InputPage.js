@@ -59,9 +59,10 @@ export default function InputPage() {
           <Button variant = "contained" color="secondary" size="large"
             onClick={async () => {
     try {
-      const roadmapData = await generateTopics(goal);
-      setTopicData(roadmapData);
-      router.push('/experience');
+      const topicsData = await generateTopics(goal);
+      setTopicData(topicsData, 10);
+      const url = `/experience?topics=${encodeURIComponent(JSON.stringify(topicsData.topics))}&goal=${goal}`; // Encode the JSON string to make it URL-safe
+      router.push(url);
 
       
       // Pass the roadmapData to ExperiencePage (using a router or context)
