@@ -90,7 +90,7 @@ const LearningDashboard = () => {
   } */}
 
   const updateContent = (nodeId) => {
-    
+
     console.log(nodeId + "qwer")
   }
 
@@ -201,7 +201,6 @@ const LearningDashboard = () => {
               <VisGraph  onClickFunction={updateContent}>
 
               </VisGraph>
-              <p className="text-gray-300">MindMap</p>
             </>
           )}
         </div>
