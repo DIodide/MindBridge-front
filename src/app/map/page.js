@@ -1,4 +1,4 @@
-import LearningDashboard from "@/components/map";
+import LearningDashboard from "@/components/map3";
 
 export default function InputPageLink() {
   return (
