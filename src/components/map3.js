@@ -253,11 +253,11 @@ const LearningDashboard = () => {
           <Bookmark className="h-4 w-4" />
         </Button>
         <h3 className="text-xl font-semibold text-purple-300 mb-2">{item.title}</h3>
-        {item.type === 'video' && (
+        {/*{item.type === 'video' && (
           <div className="aspect-w-16 aspect-h-9 mb-2">
             <iframe src={item.content} className="w-full h-full rounded" allowFullScreen></iframe>
           </div>
-        )}
+        )}*/}
          <p className="text-gray-300 mb-2">{item.content}</p> 
     <div className="flex justify-between mt-4">
           {/* <Button 
@@ -324,7 +324,7 @@ const LearningDashboard = () => {
               {renderContent()}
             </CardContent>
 
-            {true &&
+            {isActiveNodeIdValid(activeNodeID) &&
         
             <CardFooter className="flex justify-between mt-4">
             <Button
