@@ -31,13 +31,6 @@ const updateContent = [
         content: 'Write a React component that implements a counter with increment and decrement buttons.'
     },
     
-    {
-    type: 'video',
-    title: 'Tutorial',
-    completed: false,
-    bookmarked: false,
-    content: 'https://example.com/intro-to-react-video'
-},
   {
     type: 'article',
     title: 'Example',
@@ -103,14 +96,7 @@ const LearningDashboard = () => {
         bookmarked: false,
         content: nodeInfo.summary,
     },
-    
-    {
-    type: 'video',
-    title: 'Tutorial',
-    completed: false,
-    bookmarked: false,
-    content: 'https://example.com/intro-to-react-video'
-},
+
   {
     type: 'article',
     title: 'Example',
@@ -256,11 +242,7 @@ const LearningDashboard = () => {
           <Bookmark className="h-4 w-4" />
         </Button>
         <h3 className="text-xl font-semibold text-purple-300 mb-2">{item.title}</h3>
-        {item.type === 'video' && (
-          <div className="aspect-w-16 aspect-h-9 mb-2">
-            <iframe src={item.content} className="w-full h-full rounded" allowFullScreen></iframe>
-          </div>
-        )}
+        
          <p className="text-gray-300 mb-2"><ReactMarkdown remarkPlugins={[remarkGfm]}>{item.content}</ReactMarkdown></p> 
     <div className="flex justify-between mt-4">
           {/* <Button 
