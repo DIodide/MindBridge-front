@@ -4,34 +4,11 @@
 import React, { useEffect, useRef, useState } from "react";
 import { DataSet, Network } from "vis-network/standalone/esm/vis-network";
 
-function returnRoadmap() {
-  return roadmap;
-}
-
-function markNodeAsSkipped(nodeId) {
-  // Find the node with the given nodeId and update its skipped value to true
-  const node = roadmap.nodes.find(node => node.id === nodeId);
-  
-  if (node) {
-    node.skipped = true;  // Set skipped to true for the found node
-
-    // Update the node in the vis.DataSet (assuming nodes is a vis.DataSet object)
-    nodesList.update({
-      id: nodeId,  // Ensure we're updating the correct node
-      skipped: true,  // Set skipped to true
-      color: 'red'  // Optionally, change the color to indicate the node is skipped
-    });
-
-    console.log(`Node ${nodeId} marked as skipped.`);
-  } else {
-    console.log(`Node with id ${nodeId} not found.`);
-  }
-}
-
 
 
 
 const VisGraph = ( {onClickFunction, roadmap, nodesList, edgesList} ) => {
+
   const visJsRef = useRef(null);
 
 
