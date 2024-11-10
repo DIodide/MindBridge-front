@@ -1,5 +1,7 @@
 'use client'
 
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 import React, { useEffect, useState } from 'react'
 import { Card, CardContent, CardHeader, CardTitle, CardFooter } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
@@ -258,7 +260,7 @@ const LearningDashboard = () => {
             <iframe src={item.content} className="w-full h-full rounded" allowFullScreen></iframe>
           </div>
         )}
-         <p className="text-gray-300 mb-2">{item.content}</p> 
+         <p className="text-gray-300 mb-2"><ReactMarkdown remarkPlugins={[remarkGfm]}>{item.content}</ReactMarkdown></p> 
     <div className="flex justify-between mt-4">
           {/* <Button 
             onClick={() => handleComplete(index)} 
