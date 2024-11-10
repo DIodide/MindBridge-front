@@ -75,7 +75,7 @@ export async function generateRoadmap(topics, goal) {
     });
     
       const parsed_response = JSON.parse(response.choices[0].message.content);
-      console.log("The roadmap response: " + JSON.stringify(response))
+      console.log("The roadmap response: " + JSON.stringify(parsed_response))
       return parsed_response;
   } catch (error) {
       console.error('Error sending ChatGPT request:', error);
