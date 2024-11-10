@@ -42,13 +42,13 @@ input[type="range"] {
   
   .SliderTrack::-webkit-slider-runnable-track {
     height: 8px;
-    background: linear-gradient(to right, black var(--slider-fill, 50%), white var(--slider-fill, 50%));
+    background: linear-gradient(to right, white var(--slider-fill, 50%), black var(--slider-fill, 50%));
     border-radius: 5px;
   }
   
   .SliderTrack::-moz-range-track {
     height: 8px;
-    background: linear-gradient(to right, black var(--slider-fill, 50%), white var(--slider-fill, 50%));
+    background: linear-gradient(to right, white var(--slider-fill, 50%), black var(--slider-fill, 50%));
     border-radius: 5px;
   }
   

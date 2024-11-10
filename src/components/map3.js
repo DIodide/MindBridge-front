@@ -109,6 +109,8 @@ const LearningDashboard = () => {
   const [content, setContent] = useState(initialContent)
   const [showBookmarks, setShowBookmarks] = useState(false)
   const [bookmarkedContent, setBookmarkedContent] = useState([])
+  const [isCompleteClicked, setIsCompleteClicked] = useState(false);
+  const [isSkipClicked, setIsSkipClicked] = useState(false);
   let activeNodeID = null;
   let nodesList;
   let edgesList;
@@ -166,6 +168,8 @@ const LearningDashboard = () => {
 
   const onClickSetActiveNodeID = (nodeId) => {
     activeNodeID = nodeId;
+    setIsCompleteClicked(false);
+    setIsSkipClicked(false);
   }
 
   const toggleCollapse = () => setIsCollapsed(!isCollapsed)
@@ -176,6 +180,7 @@ const LearningDashboard = () => {
     setIsCollapsed(!isCollapsed)
   }
   const handleComplete = () => {
+    setIsCompleteClicked(true);
     if(activeNodeID) {
         // Find the node with the given nodeId and update its skipped value to true
         const node = roadmap.nodes.find(node => node.id === activeNodeID);
@@ -195,9 +200,11 @@ const LearningDashboard = () => {
           console.log(`Node with id ${activeNodeID} not found.`);
         }
     }
+    // setTimeout(() => setIsCompleteClicked(false), 300); Reset state after 300ms
   }
 
-  const handleSkip = (index) => {
+  const handleSkip = () => {
+    setIsSkipClicked(true);
     if(activeNodeID) {
       // Find the node with the given nodeId and update its skipped value to true
       const node = roadmap.nodes.find(node => node.id === activeNodeID);
@@ -217,6 +224,7 @@ const LearningDashboard = () => {
         console.log(`Node with id ${activeNodeID} not found.`);
       }
     }
+    // setTimeout(() => setIsSkipClicked(false), 300); // Reset state after 300ms
   }
 
   const handleBookmark = (index) => {
@@ -288,7 +296,7 @@ const LearningDashboard = () => {
         <div className="absolute -bottom-8 left-20 w-72 h-72 bg-purple-400 rounded-full mix-blend-multiply filter blur-xl animate-blob animation-delay-4000"></div>
       </div> */}
       
-      <div className="w-full max-w-6xl mx-auto flex">
+      <div className="w-full mx-auto flex">
         {/* Left section (expands when right section is collapsed) */}
         <div className={`bg-gray-900 rounded-l-2xl p-6 transition-all duration-300 ${isCollapsed ? 'w-full' : 'w-96'}`}>
           <Card className="h-full bg-transparent border-none">
@@ -322,20 +330,23 @@ const LearningDashboard = () => {
               {renderContent()}
             </CardContent>
             <CardFooter className="flex justify-between mt-4">
-                <Button 
-                
-                  onClick={() => handleComplete()} 
-                  className="bg-green-600 hover:bg-green-700"
-                >
-                  Complete
-                </Button>
-                <Button 
-                  onClick={() => handleSkip()} 
-                  className="bg-yellow-600 hover:bg-yellow-700"
-                >
-                  Skip All
-                </Button>
-              </CardFooter>
+            <Button
+                onClick={handleComplete}
+                className={`bg-green-600 hover:bg-green-700 ${
+                isCompleteClicked ? 'bg-green-800 opacity-75' : ''
+                }`}
+            >
+                Complete
+            </Button>
+            <Button
+                onClick={handleSkip}
+                className={`bg-yellow-600 hover:bg-yellow-700 ${
+                isSkipClicked ? 'bg-yellow-800 opacity-75' : ''
+                }`}
+            >
+                Skip All
+            </Button>
+            </CardFooter>
           </Card>
         </div>
 
@@ -343,7 +354,7 @@ const LearningDashboard = () => {
         <div className={`transition-all duration-300 ease-in-out ${isCollapsed ? 'w-0' : 'w-3/4'} bg-gray-800 rounded-r-2xl p-8 relative overflow-hidden`}>
           {!isCollapsed && (
             <>
-              <h1 className="text-4xl font-bold text-purple-300 mb-4">Main Learning Area</h1>
+              <h1 className="text-4xl font-bold text-purple-300 mb-4"> Your Customized Roadmap</h1>
               <VisGraph  onClickFunction={onClickSetActiveNodeID} roadmap={roadmap} nodesList={nodesList} edgesList={edgesList}> 
 
               </VisGraph>
