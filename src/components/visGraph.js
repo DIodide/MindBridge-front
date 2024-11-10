@@ -1,5 +1,6 @@
 "use client";
 
+import { color } from "framer-motion";
 // VisGraph.js
 import React, { useEffect, useRef, useState } from "react";
 import { DataSet, Network } from "vis-network/standalone/esm/vis-network";
@@ -18,6 +19,14 @@ const VisGraph = ( {onClickFunction, roadmap, nodesList, edgesList} ) => {
     // Define the network options
     const options = {
       nodes: {
+        color: {
+          border: '#FFFFFF', // White border for better contrast
+          background: '#551A8B', // A darker purple for a more modern look
+          highlight: {
+            border: '#FFFFFF',
+            background: '#B93CF6', // A brighter purple on hover
+          },
+        },
         shape: "box",  // Use a box shape for the node to make it better for text fitting
         font: { 
           color: "#ffffff", 
@@ -34,7 +43,10 @@ const VisGraph = ( {onClickFunction, roadmap, nodesList, edgesList} ) => {
         size: 20,           // Base size of the node (this can be adjusted)
       },
       edges: {
-        color: { color: "#848484" },
+        color: { 
+          color: "#848484", 
+          highlight: '#B93CF6', // Highlight with the brighter purple
+        },
         width: 3, // Edge thickness
         font: { color: "#343434", size: 12, align: "horizontal" },
         smooth: {
@@ -79,18 +91,18 @@ const VisGraph = ( {onClickFunction, roadmap, nodesList, edgesList} ) => {
 
 
       if (nodes.length > 0) {
-        console.log("Node clicked: " + nodes[0]);
+        // console.log("Node clicked: " + nodes[0]);
         // network.deleteSelected();
         // nodesList.remove(nodes[0]);
-        nodesList.updateOnly({id: nodes[0], label: "updated"});
+        // nodesList.updateOnly({id: nodes[0], label: "updated"});
         onClickFunction(nodes[0]);
 
       } else if (edges.length > 0) {
-        console.log("Edge clicked: " + edges[0]);
-        let newId = nodesList.max("id").id + 1;
-        console.log(newId);
-        nodesList.add({id: newId, label: 'Test'})
-        edgesList.add({id: newId, from: 1, to: newId})
+        // console.log("Edge clicked: " + edges[0]);
+        // let newId = nodesList.max("id").id + 1;
+        // console.log(newId);
+        // nodesList.add({id: newId, label: 'Test'})
+        // edgesList.add({id: newId, from: 1, to: newId})
       } else {
         console.log("Background clicked");
       }
