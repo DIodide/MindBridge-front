@@ -70,3 +70,27 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+# Acknowledgments
+
+We would like to extend our gratitude to the open-source community and the developers behind the libraries and frameworks that powered our project. This application would not have been possible without the following technologies:
+
+Next.js: For enabling rapid development of our React application with server-side rendering and static site generation.
+
+Tailwind CSS and tailwindcss-animate: For allowing us to create a beautiful, responsive UI with ease.
+
+@mui/material and @emotion/react/styled: For providing customizable components and styling solutions to enhance our UI design.
+
+Radix UI components: For providing accessible and highly customizable UI primitives, including Checkbox, Dialog, Tooltip, and more.
+
+Framer Motion: For powering our animations and bringing fluid motion to the user experience.
+
+Zod: For simplifying our data validation.
+
+Graphology and vis-network: For making it easier to visualize and manage graph data.
+
+OpenAI: For integration with advanced AI-powered services.
+
+dotenv: For managing environment variables securely.
+
+ESLint: For maintaining code quality and standards.
