@@ -3,43 +3,9 @@ import { motion } from 'framer-motion'
 import { useState } from 'react'
 import Link from 'next/link'
 
-import { TypewriterEffectSmooth } from "@/components/ui/typewriter-effect"
-
 
 export default function TitleCard() {
   const [isHovered, setIsHovered] = useState(false)
-
-
-  const words = [
-    {
-      text: "Bridging",
-      className: "text-white",
-    },
-    {
-      text: "the",
-      className: "text-white",
-    },
-    {
-      text: "gap",
-      className: "text-white",
-    },
-    {
-      text: "to",
-      className: "text-white",
-    },
-    {
-      text: "your",
-      className: "text-white",
-    },
-    {
-      text: "next",
-      className: "text-white",
-    },
-    {
-      text: "milestone",
-      className: "text-purple-700",
-    },
-  ];
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-black p-4">
@@ -78,20 +44,16 @@ export default function TitleCard() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4 }}
         >
-          MindBridge
+          Mind Bridge
         </motion.h1>
-        
         <motion.p
-          className="text-xl md:text-xl mb-8 text-purple-100"
+          className="text-xl md:text-2xl mb-8 text-purple-100"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.6 }}
         >
-          <TypewriterEffectSmooth words={words} className={"w-full"} />
+          Connect your thoughts, expand your horizons, and bridge the gap between imagination and reality.
         </motion.p>
-
-        
-        
         
         <Link href="/start">
         <motion.button

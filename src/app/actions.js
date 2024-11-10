@@ -46,7 +46,7 @@ const NodeInfoSchema = z.object({
   learnMoreInformation: z.string(),
 })
 
-export async function generateTopics(goal, maxTopics=10) {
+export async function generateTopics(goal, maxTopics=12) {
   try {
       (await cookies()).set('goal', JSON.stringify(goal))
     const response = await openai.chat.completions.create({
@@ -79,7 +79,7 @@ export async function generateRoadmap(preferences) {
         model: 'gpt-4o', // Or a more suitable model // change to gpt-4o for pitch
           messages: [
           { role: 'system', content: `You are helping users build a learning roadmap. The user has already asked you what you want to learn, and you have asked the user for their background knowledge. Now, you will generate a roadmap, with the user's background knowledge in mind, meaning that you will not repeat topics in the roadmap that the user has said they already know. Consider the learning preferences very little, they shouldn't have too much impact on your roadmap, but they should be considered.`  },
-              { role: 'user', content: `Generate a learning roadmap for ${goal}. I have already learned the following topics: ${topics}. There should be 10 nodes. My learning preferences on a scale of [1, 5] are as follows: ${JSON.stringify(preferences)}.` },
+              { role: 'user', content: `Generate a learning roadmap for ${goal}. I have already learned the following topics: ${topics}. There should be at 5 nodes. My learning preferences on a scale of [1, 5] are as follows: ${JSON.stringify(preferences)}.` },
           ],
           response_format: zodResponseFormat(RoadmapSchema, "roadmap"), // Use zodResponseFormat
         temperature: 0.7, // Adjust for creativity
