@@ -11,6 +11,7 @@ import { useSearchParams } from 'next/navigation'; // For Next.js App Router
 import { generateRoadmap } from "@/app/actions";
 
 import useTopicsStore from '../store/topicsStore';
+import { motion } from 'framer-motion';
 
 export default function Experience() {
   const searchParams = useSearchParams();
@@ -50,20 +51,24 @@ export default function Experience() {
   }
 
   return (
-    <div className="min-h-screen bg-black p-4 flex items-center justify-center relative overflow-hidden">
+    <motion.div
+    initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.8, delay: 0.2 }}
+     className="min-h-screen bg-black p-10 flex items-center justify-center relative overflow-hidden">
       <div className="absolute inset-0 opacity-20">
         <div className="absolute top-0 -left-4 w-72 h-72 bg-purple-500 rounded-full mix-blend-multiply filter blur-xl animate-blob"></div>
         <div className="absolute top-0 -right-4 w-72 h-72 bg-purple-300 rounded-full mix-blend-multiply filter blur-xl animate-blob animation-delay-2000"></div>
         <div className="absolute -bottom-8 left-20 w-72 h-72 bg-purple-400 rounded-full mix-blend-multiply filter blur-xl animate-blob animation-delay-4000"></div>
       </div>
-      <Card className="w-full max-w-md mx-auto bg-gray-900 border-purple-500 border-2 rounded-2xl shadow-2xl transition-all duration-300 ease-in-out hover:shadow-purple-500/20 relative z-10">
+      <Card className="w-full max-w-2xl mx-auto bg-gray-900 border-purple-500 border-2 rounded-2xl shadow-2xl transition-all duration-300 ease-in-out hover:shadow-purple-500/20 relative z-10">
         <CardHeader className="border-b border-purple-500 pb-4">
           <CardTitle className="text-2xl font-extrabold text-center text-purple-300 tracking-tight">
             What do you already know about this topic?
           </CardTitle>
         </CardHeader>
         <CardContent className="mt-6">
-          <ul className="space-y-5">
+          <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {checklist.map(item => (
               <li key={item.id} className="flex items-center space-x-3 group">
                 <div className="relative">
@@ -98,6 +103,6 @@ export default function Experience() {
             </Button>
         </CardFooter>
       </Card>
-    </div>
+    </motion.div>
   )
 }
