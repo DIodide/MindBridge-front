@@ -273,7 +273,12 @@ const LearningDashboard = () => {
     }))
   ) : new DataSet([]); // Initialize with empty DataSet if roadmap is null
 
-  const edgesList = roadmap ? new DataSet(roadmap.edges) : new DataSet([]);
+  const edgesList = roadmap ? new DataSet(
+    roadmap.edges.map(node => ({
+      from: node.source,
+      to: node.target
+    }))
+  ) : new DataSet([]); // Initialize with empty DataSet if roadmap is null
 
   // ... rest of your component
 
