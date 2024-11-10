@@ -219,14 +219,14 @@ const LearningDashboard = () => {
       label: node.topicName,
       title: node.shortDescription,
       // color: node.completed ? 'green' : node.skipped ? 'orange' : 'blue'
-      color: {
-        border: '#FFFFFF', // White border for better contrast
-        background: '#4285F4', // A darker purple for a more modern look
-        highlight: {
-          border: '#FFFFFF',
-          background: '#B93CF6', // A brighter purple on hover
-        },
-      },
+      // color: {
+      //   border: '#FFFFFF', // White border for better contrast
+      //   background: '#4285F4', // A darker purple for a more modern look
+      //   highlight: {
+      //     border: '#FFFFFF',
+      //     background: '#B93CF6', // A brighter purple on hover
+      //   },
+      // },
       borderWidth: 3,
       // shadow: { enabled: true, color: "orange", size: 10 },
     }))
