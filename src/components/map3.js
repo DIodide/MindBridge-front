@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button"
 import { ChevronLeft, ChevronRight, Undo, Edit3, Link, Maximize2, Check, SkipForward, Bookmark } from "lucide-react"
 import VisGraph from './visGraph'
 import { DataSet, Network } from "vis-network/standalone/esm/vis-network";
-import { getRoadmap } from '@/app/actions'
+import { generateNodeInfo, getRoadmap } from '@/app/actions'
 const tags = []
 
 
@@ -54,62 +54,6 @@ const updateContent = [
 ]
 
 
-// // ROAD MAP OBJ
-// let roadmap = {
-//   title: "Learning Roadmap",
-//   description: "A roadmap for learning topics to reach a specific goal.",
-//   nodes: [
-//     {
-//       topicName: "Introduction to Programming",
-//       shortDescription: "Basics of programming and algorithms.",
-//       id: 1,
-//       completed: false,
-//       skipped: false
-//     },
-//     {
-//       topicName: "JavaScript Fundamentals",
-//       shortDescription: "Introduction to JavaScript syntax and concepts.",
-//       id: 2,
-//       completed: true,
-//       skipped: false
-//     },
-//     {
-//       topicName: "React Basics",
-//       shortDescription: "Learn the basics of building user interfaces with React.",
-//       id: 3,
-//       completed: false,
-//       skipped: true
-//     },
-//     {
-//       topicName: "Data Structures",
-//       shortDescription: "Understanding essential data structures in programming.",
-//       id: 4,
-//       completed: false,
-//       skipped: false
-//     }
-//   ],
-//   edges: [
-//     {
-//       source: 1,
-//       target: 2
-//     },
-//     {
-//       source: 2,
-//       target: 3
-//     },
-//     {
-//       source: 3,
-//       target: 4
-//     }
-//   ]
-// };
-
-
-
-    // Define the nodes and edges
-    // const nodesList = new DataSet(roadmap.nodes);
-
-
 
 
 const LearningDashboard = () => {
@@ -135,52 +79,55 @@ const LearningDashboard = () => {
       const roadmapData = await getRoadmap();
       setRoadmap(roadmapData); // Update roadmap state
       setIsLoading(false); // Done loading
-    //   console.log("RIGHT AFTER THINGY THING")
-    //   console.log(roadmap)
-    //   nodesList = new DataSet(
-    //     roadmap.nodes.map(node => {
-    //       let nodeColor;
     
-    //       // Use if-else to determine the color based on the 'completed' and 'skipepd' status
-    //       if (node.completed) {
-    //         nodeColor = 'green';  // Node is completed
-    //       } else if (node.skipped) {
-    //         nodeColor = 'orange';  // Node is skipped
-    //       } else {
-    //         nodeColor = 'blue';   // Node is not completed
-    //       }
-    
-    //       return {
-    //         id: node.id,
-    //         label: node.topicName,  // Set label to the topic name
-    //         title: node.shortDescription,  // Set title as the description for hover
-    //         color: nodeColor  // Use the nodeColor variable for the color property
-    //       };
-    //     }
-      
-    //     )
-      
-
-    //   );
-    //   console.log("AFTER THING2: " + JSON.stringify(nodesList))
-
-    
-
-
-
-    //   edgesList = new DataSet([
-    //   { from: 1, to: 2, length: 200},
-    //   { from: 1, to: 3, length: 200 },
-    //   { from: 2, to: 4, length: 200 },
-    //   { from: 2, to: 5, length: 200 },
-    // ]);
     }
     getServerRoadmap()
   }, [])
 
 
-  const onClickSetActiveNodeID = (nodeId) => {
+  const onClickSetActiveNodeID = async (nodeId) => {
     activeNodeID = nodeId;
+    const node = roadmap.nodes.find(node => node.id === activeNodeID);
+    console.log(node.shortDescription);
+    console.log("topicname: " + node.topicName);
+    const nodeInfo = await generateNodeInfo(node.topicName, node.shortDescription);
+    console.log("NODEINFO:")
+    console.log(nodeInfo);
+    const updateContent = [
+    {
+        type: 'text',
+        title: 'Introduction',
+        completed: false,
+        bookmarked: false,
+        content: nodeInfo.summary,
+    },
+    
+    {
+    type: 'video',
+    title: 'Tutorial',
+    completed: false,
+    bookmarked: false,
+    content: 'https://example.com/intro-to-react-video'
+},
+  {
+    type: 'article',
+    title: 'Example',
+    completed: false,
+    bookmarked: false,
+    content: nodeInfo.example
+  },
+
+  {
+    type: 'article',
+    title: 'Learn More',
+    completed: false,
+    bookmarked: false,
+    content: nodeInfo.learnMoreInformation
+      } 
+  
+]
+    setContent(updateContent)
+    console.log(content)
     setIsCompleteClicked(false);
     setIsSkipClicked(false);
   }
