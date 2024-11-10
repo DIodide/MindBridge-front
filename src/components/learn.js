@@ -91,7 +91,7 @@ const Style = () => {
           ))}
         </CardContent>
         <CardFooter className="flex justify-end mt-6">
-        <Link href = "/map3">
+        
           <Button 
             onClick={handleNextClick}
             className="bg-purple-600 hover:bg-purple-700 text-white font-semibold py-2 px-4 rounded-full transition-all duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-opacity-50"
@@ -99,7 +99,7 @@ const Style = () => {
             Generate Roadmap
             <ChevronRight className="ml-2 h-4 w-4" />
           </Button>
-          </Link>
+          
         </CardFooter>
       </Card>
     </div>
