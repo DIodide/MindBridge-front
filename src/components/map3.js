@@ -109,59 +109,59 @@ const LearningDashboard = () => {
   const [content, setContent] = useState(initialContent)
   const [showBookmarks, setShowBookmarks] = useState(false)
   const [bookmarkedContent, setBookmarkedContent] = useState([])
+  const [roadmap, setRoadmap] = useState(null); // Store roadmap data in state
+  const [isLoading, setIsLoading] = useState(true); // Add loading state
   let activeNodeID = null;
-  let nodesList;
-  let edgesList;
-  let roadmap;
 
 
   useEffect(() => { 
     async function getServerRoadmap() { 
-      roadmap = await getRoadmap();
-      console.log("RIGHT AFTER THINGY THING")
-      console.log(roadmap)
-      nodesList = new DataSet(
-        roadmap.nodes.map(node => {
-          let nodeColor;
+      setIsLoading(true); // Start loading
+      const roadmapData = await getRoadmap();
+      setRoadmap(roadmapData); // Update roadmap state
+      setIsLoading(false); // Done loading
+    //   console.log("RIGHT AFTER THINGY THING")
+    //   console.log(roadmap)
+    //   nodesList = new DataSet(
+    //     roadmap.nodes.map(node => {
+    //       let nodeColor;
     
-          // Use if-else to determine the color based on the 'completed' and 'skipepd' status
-          if (node.completed) {
-            nodeColor = 'green';  // Node is completed
-          } else if (node.skipped) {
-            nodeColor = 'orange';  // Node is skipped
-          } else {
-            nodeColor = 'blue';   // Node is not completed
-          }
+    //       // Use if-else to determine the color based on the 'completed' and 'skipepd' status
+    //       if (node.completed) {
+    //         nodeColor = 'green';  // Node is completed
+    //       } else if (node.skipped) {
+    //         nodeColor = 'orange';  // Node is skipped
+    //       } else {
+    //         nodeColor = 'blue';   // Node is not completed
+    //       }
     
-          return {
-            id: node.id,
-            label: node.topicName,  // Set label to the topic name
-            title: node.shortDescription,  // Set title as the description for hover
-            color: nodeColor  // Use the nodeColor variable for the color property
-          };
-        }
+    //       return {
+    //         id: node.id,
+    //         label: node.topicName,  // Set label to the topic name
+    //         title: node.shortDescription,  // Set title as the description for hover
+    //         color: nodeColor  // Use the nodeColor variable for the color property
+    //       };
+    //     }
       
-        )
+    //     )
       
 
-      );
-      console.log("AFTER THING2: " + JSON.stringify(nodesList))
+    //   );
+    //   console.log("AFTER THING2: " + JSON.stringify(nodesList))
 
     
 
 
 
-      edgesList = new DataSet([
-      { from: 1, to: 2, length: 200},
-      { from: 1, to: 3, length: 200 },
-      { from: 2, to: 4, length: 200 },
-      { from: 2, to: 5, length: 200 },
-    ]);
+    //   edgesList = new DataSet([
+    //   { from: 1, to: 2, length: 200},
+    //   { from: 1, to: 3, length: 200 },
+    //   { from: 2, to: 4, length: 200 },
+    //   { from: 2, to: 5, length: 200 },
+    // ]);
     }
     getServerRoadmap()
   }, [])
-  console.log("After useEffect: " + nodesList)
-  console.log("After useEffect: " + edgesList)
 
 
   const onClickSetActiveNodeID = (nodeId) => {
@@ -236,6 +236,21 @@ const LearningDashboard = () => {
   }
 
 
+    // ... other functions (handleComplete, handleSkip, etc.)
+
+  // Create DataSet instances based on roadmap data
+  const nodesList = roadmap ? new DataSet(
+    roadmap.nodes.map(node => ({
+      id: node.id,
+      label: node.topicName,
+      title: node.shortDescription,
+      color: node.completed ? 'green' : node.skipped ? 'orange' : 'blue'
+    }))
+  ) : new DataSet([]); // Initialize with empty DataSet if roadmap is null
+
+  const edgesList = roadmap ? new DataSet(roadmap.edges) : new DataSet([]);
+
+  // ... rest of your component
 
 
   const renderContent = () => {
@@ -341,12 +356,19 @@ const LearningDashboard = () => {
 
         {/* Right section (collapsible) */}
         <div className={`transition-all duration-300 ease-in-out ${isCollapsed ? 'w-0' : 'w-3/4'} bg-gray-800 rounded-r-2xl p-8 relative overflow-hidden`}>
-          {!isCollapsed && (
+        {!isCollapsed && (
             <>
               <h1 className="text-4xl font-bold text-purple-300 mb-4">Main Learning Area</h1>
-              <VisGraph  onClickFunction={onClickSetActiveNodeID} roadmap={roadmap} nodesList={nodesList} edgesList={edgesList}> 
-
-              </VisGraph>
+              {isLoading ? ( // Show loading indicator
+                <p className='text-white'>Loading roadmap...</p> 
+              ) : (
+                <VisGraph
+                  onClickFunction={onClickSetActiveNodeID}
+                  roadmap={roadmap}
+                  nodesList={nodesList}
+                  edgesList={edgesList}
+                />
+              )}
             </>
           )}
         </div>
