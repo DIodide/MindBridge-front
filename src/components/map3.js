@@ -7,41 +7,17 @@ import { ChevronLeft, ChevronRight, Undo, Edit3, Link, Maximize2, Check, SkipFor
 import VisGraph from './visGraph'
 import { DataSet, Network } from "vis-network/standalone/esm/vis-network";
 import { getRoadmap } from '@/app/actions'
-const tags = ['JavaScript', 'React', 'Node.js']
+const tags = []
 
 
 
 const initialContent = [
   {
     type: 'article',
-    title: 'Introduction',
-    completed: false,
-    bookmarked: false,
-    content: 'React Hooks are a powerful feature that allows you to use state and other React features without writing a class...'
-
-  },
-  {
-    type: 'video',
-    title: 'Tutorial',
-    completed: false,
-    bookmarked: false,
-    content: 'https://example.com/intro-to-react-video'
-},
-  {
-    type: 'article',
-    title: 'Example',
-    completed: false,
-    bookmarked: false,
-    content: 'Write a React component that implements a counter with increment and decrement buttons.'
-  },
-
-  {
-    type: 'article',
-    title: 'Learn More',
-    completed: false,
-    bookmarked: false,
-    content: 'Write a React component that implements a counter with increment and decrement buttons.'
+    title: 'Click on a node to get started on your journey...',
+    
   }
+  
 ]
 
 
@@ -109,9 +85,15 @@ const LearningDashboard = () => {
   const [content, setContent] = useState(initialContent)
   const [showBookmarks, setShowBookmarks] = useState(false)
   const [bookmarkedContent, setBookmarkedContent] = useState([])
+  const [isCompleteClicked, setIsCompleteClicked] = useState(false);
+  const [isSkipClicked, setIsSkipClicked] = useState(false);
   const [roadmap, setRoadmap] = useState(null); // Store roadmap data in state
   const [isLoading, setIsLoading] = useState(true); // Add loading state
   let activeNodeID = null;
+
+
+
+
 
 
   useEffect(() => { 
@@ -166,6 +148,8 @@ const LearningDashboard = () => {
 
   const onClickSetActiveNodeID = (nodeId) => {
     activeNodeID = nodeId;
+    setIsCompleteClicked(false);
+    setIsSkipClicked(false);
   }
 
   const toggleCollapse = () => setIsCollapsed(!isCollapsed)
@@ -176,6 +160,7 @@ const LearningDashboard = () => {
     setIsCollapsed(!isCollapsed)
   }
   const handleComplete = () => {
+    setIsCompleteClicked(true);
     if(activeNodeID) {
         // Find the node with the given nodeId and update its skipped value to true
         const node = roadmap.nodes.find(node => node.id === activeNodeID);
@@ -195,9 +180,11 @@ const LearningDashboard = () => {
           console.log(`Node with id ${activeNodeID} not found.`);
         }
     }
+    // setTimeout(() => setIsCompleteClicked(false), 300); Reset state after 300ms
   }
 
-  const handleSkip = (index) => {
+  const handleSkip = () => {
+    setIsSkipClicked(true);
     if(activeNodeID) {
       // Find the node with the given nodeId and update its skipped value to true
       const node = roadmap.nodes.find(node => node.id === activeNodeID);
@@ -217,7 +204,12 @@ const LearningDashboard = () => {
         console.log(`Node with id ${activeNodeID} not found.`);
       }
     }
+    // setTimeout(() => setIsSkipClicked(false), 300); // Reset state after 300ms
   }
+
+  const isActiveNodeIdValid = (activeNodeId) => {
+    return activeNodeId !== null;
+  };
 
   const handleBookmark = (index) => {
     const newContent = [...content]
@@ -303,7 +295,7 @@ const LearningDashboard = () => {
         <div className="absolute -bottom-8 left-20 w-72 h-72 bg-purple-400 rounded-full mix-blend-multiply filter blur-xl animate-blob animation-delay-4000"></div>
       </div> */}
       
-      <div className="w-full max-w-6xl mx-auto flex">
+      <div className="w-full mx-auto flex">
         {/* Left section (expands when right section is collapsed) */}
         <div className={`bg-gray-900 rounded-l-2xl p-6 transition-all duration-300 ${isCollapsed ? 'w-full' : 'w-96'}`}>
           <Card className="h-full bg-transparent border-none">
@@ -336,21 +328,27 @@ const LearningDashboard = () => {
             <CardContent className="overflow-y-auto h-[calc(100vh-200px)]">
               {renderContent()}
             </CardContent>
+
+            {isActiveNodeIdValid(activeNodeID) &&
+        
             <CardFooter className="flex justify-between mt-4">
-                <Button 
-                
-                  onClick={() => handleComplete()} 
-                  className="bg-green-600 hover:bg-green-700"
-                >
-                  Complete
-                </Button>
-                <Button 
-                  onClick={() => handleSkip()} 
-                  className="bg-yellow-600 hover:bg-yellow-700"
-                >
-                  Skip All
-                </Button>
-              </CardFooter>
+            <Button
+                onClick={handleComplete}
+                className={`bg-green-600 hover:bg-green-700 ${
+                isCompleteClicked ? 'bg-green-800 opacity-75' : ''
+                }`}
+            >
+                Complete
+            </Button>
+            <Button
+                onClick={handleSkip}
+                className={`bg-yellow-600 hover:bg-yellow-700 ${
+                isSkipClicked ? 'bg-yellow-800 opacity-75' : ''
+                }`}
+            >
+                Skip All
+            </Button>
+            </CardFooter> }
           </Card>
         </div>
 
