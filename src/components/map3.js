@@ -7,41 +7,17 @@ import { ChevronLeft, ChevronRight, Undo, Edit3, Link, Maximize2, Check, SkipFor
 import VisGraph from './visGraph'
 import { DataSet, Network } from "vis-network/standalone/esm/vis-network";
 import { getRoadmap } from '@/app/actions'
-const tags = ['JavaScript', 'React', 'Node.js']
+const tags = []
 
 
 
 const initialContent = [
   {
     type: 'article',
-    title: 'Introduction',
-    completed: false,
-    bookmarked: false,
-    content: 'React Hooks are a powerful feature that allows you to use state and other React features without writing a class...'
-
-  },
-  {
-    type: 'video',
-    title: 'Tutorial',
-    completed: false,
-    bookmarked: false,
-    content: 'https://example.com/intro-to-react-video'
-},
-  {
-    type: 'article',
-    title: 'Example',
-    completed: false,
-    bookmarked: false,
-    content: 'Write a React component that implements a counter with increment and decrement buttons.'
-  },
-
-  {
-    type: 'article',
-    title: 'Learn More',
-    completed: false,
-    bookmarked: false,
-    content: 'Write a React component that implements a counter with increment and decrement buttons.'
+    title: 'Click on a node to get started on your journey...',
+    
   }
+  
 ]
 
 
@@ -115,6 +91,8 @@ const LearningDashboard = () => {
   let nodesList;
   let edgesList;
   let roadmap;
+
+
 
 
   useEffect(() => { 
@@ -227,6 +205,10 @@ const LearningDashboard = () => {
     // setTimeout(() => setIsSkipClicked(false), 300); // Reset state after 300ms
   }
 
+  const isActiveNodeIdValid = (activeNodeId) => {
+    return activeNodeId !== null;
+  };
+
   const handleBookmark = (index) => {
     const newContent = [...content]
     newContent[index].bookmarked = !newContent[index].bookmarked
@@ -329,6 +311,9 @@ const LearningDashboard = () => {
             <CardContent className="overflow-y-auto h-[calc(100vh-200px)]">
               {renderContent()}
             </CardContent>
+
+            {isActiveNodeIdValid(activeNodeID) &&
+        
             <CardFooter className="flex justify-between mt-4">
             <Button
                 onClick={handleComplete}
@@ -346,7 +331,7 @@ const LearningDashboard = () => {
             >
                 Skip All
             </Button>
-            </CardFooter>
+            </CardFooter> }
           </Card>
         </div>
 
