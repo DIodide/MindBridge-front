@@ -232,7 +232,7 @@ const LearningDashboard = () => {
   const renderContent = () => {
     const contentToRender = showBookmarks ? content.filter(item => item.bookmarked) : content
     return contentToRender.map((item, index) => (
-      <div key={index} className="mb-6 p-4 bg-gray-800 rounded-lg relative">
+      <div key={index} className="mb-6 p-4 bg-gray-800 rounded-lg relative overflow-auto">
         <Button
           variant="ghost"
           size="icon"
@@ -275,7 +275,7 @@ const LearningDashboard = () => {
         <div className="absolute -bottom-8 left-20 w-72 h-72 bg-purple-400 rounded-full mix-blend-multiply filter blur-xl animate-blob animation-delay-4000"></div>
       </div> */}
       
-      <div className="w-full mx-auto flex">
+      <div className="w-full mx-auto max-h-[96.5vh] flex">
         {/* Left section (expands when right section is collapsed) */}
         <div className={`bg-gray-900 rounded-l-2xl p-6 transition-all duration-300 ${isCollapsed ? 'w-full' : 'w-96'}`}>
           <Card className="h-full bg-transparent border-none">

@@ -83,3 +83,31 @@
     @apply bg-background text-foreground;
   }
 }
+
+
+
+/* Customize scrollbar styles */
+::-webkit-scrollbar {
+  width: 10px;
+  /* Adjust scrollbar width */
+}
+::-webkit-scrollbar-corner {
+    background-color: var(--background);
+    /* Match background color */
+  }
+::-webkit-scrollbar-track {
+  background-color: var(--background);
+  /* Match background color */
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #800080;
+  /* Bright purple color */
+  border-radius: 10px;
+  /* Optional: Round the scrollbar thumb */
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #990099;
+  /* Darker purple on hover */
+}
