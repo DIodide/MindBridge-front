@@ -28,7 +28,7 @@ const Style = () => {
     console.log("Generate Roadmap clicked", preferences)
     // Add your roadmap generation logic here
     await generateRoadmap(preferences)
-    router.push('map')
+    //router.push('map')
   }
 
   return (
