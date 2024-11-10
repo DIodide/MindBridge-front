@@ -239,6 +239,7 @@ const LearningDashboard = () => {
     }))
   ) : new DataSet([]); // Initialize with empty DataSet if roadmap is null
 
+
   // ... rest of your component
 
 
@@ -353,9 +354,14 @@ const LearningDashboard = () => {
         <div className={`transition-all duration-300 ease-in-out ${isCollapsed ? 'w-0' : 'w-3/4'} bg-gray-800 rounded-r-2xl p-8 relative overflow-hidden`}>
         {!isCollapsed && (
             <>
-              <h1 className="text-4xl font-bold text-purple-300 mb-4">Main Learning Area</h1>
               {isLoading ? ( // Show loading indicator
-                <p className='text-white'>Loading roadmap...</p> 
+                <h1 className="text-4xl font-bold text-purple-300 mb-4">LOADING...</h1>
+              ) : (
+                <h1 className="text-4xl font-bold text-purple-300 mb-4">{roadmap.title}</h1>
+              )}
+
+              {isLoading ? ( // Show loading indicator
+                <p className='text-white'></p> 
               ) : (
                 <VisGraph
                   onClickFunction={onClickSetActiveNodeID}
