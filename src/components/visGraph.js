@@ -115,7 +115,7 @@ const VisGraph = ( {onClickFunction, roadmap, nodesList, edgesList} ) => {
     };
   }, []);
 
-  return <div ref={visJsRef} style={{ height: "500px", width: "1000px" }} />;
+  return <div ref={visJsRef} style={{ height: "83vh", width: "60vw" }} />;
 };
 
 export default VisGraph
