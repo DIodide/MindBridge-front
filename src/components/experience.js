@@ -8,6 +8,7 @@ import { ChevronRight, Check } from "lucide-react"
 import Link from 'next/link'
 import { useEffect } from 'react'
 import { useSearchParams } from 'next/navigation'; // For Next.js App Router
+import { generateRoadmap } from "@/app/actions";
 
 import useTopicsStore from '../store/topicsStore';
 import { motion } from 'framer-motion';
@@ -32,7 +33,7 @@ export default function Experience() {
     )
   }, [searchParams]);
 
-
+  const goal = searchParams.get('goal');
 
   const handleCheckboxChange = (id) => {
     setChecklist(checklist.map(item => 
@@ -40,9 +41,13 @@ export default function Experience() {
     ))
   }
 
-  const handleNextClick = () => {
+  const handleNextClick = async () => {
     console.log("Next button clicked")
-    console.log("Checked items:", checklist.filter(item => item.checked))
+    
+    const checkedItems = checklist.filter(item => item.checked);
+    const selectedTopics = checkedItems.map(item => item.text);
+    console.log("Checked items:", selectedTopics)
+    const roadmapData = await generateRoadmap(selectedTopics, goal); // string[]
   }
 
   return (
@@ -89,7 +94,6 @@ export default function Experience() {
           </ul>
         </CardContent>
         <CardFooter className="flex justify-end mt-6">
-          <Link href="/learn"> 
             <Button 
               onClick={handleNextClick}
               className="bg-purple-600 hover:bg-purple-700 text-white font-semibold py-2 px-4 rounded-full transition-all duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-opacity-50"
@@ -97,7 +101,6 @@ export default function Experience() {
               Next
               <ChevronRight className="ml-2 h-4 w-4" />
             </Button>
-          </Link>
         </CardFooter>
       </Card>
     </motion.div>
