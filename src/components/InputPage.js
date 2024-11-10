@@ -8,7 +8,7 @@ import { useRouter } from "next/navigation";
 
 
 export default function InputPage() {
-  const topics = ["Front-end Development", "Physics", "Budgeting", "Exercise", "Python", "Artificial Intelligence", "Data Science" ,"Calculus"]
+  const topics = ["Front-end Development", "Physics", "Budgeting", "Exercise", "Python", "Artificial Intelligence", "Data Science" , "Vector Calculus"]
   const [goal, setGoal] = useState("")
   const [topicData, setTopicData] = useState(null);
   const router = useRouter();
