@@ -357,7 +357,10 @@ const LearningDashboard = () => {
               {isLoading ? ( // Show loading indicator
                 <h1 className="text-4xl font-bold text-purple-300 mb-4">LOADING...</h1>
               ) : (
+                <>
                 <h1 className="text-4xl font-bold text-purple-300 mb-4">{roadmap.title}</h1>
+                <p className="text-gray-300 mb-4">{roadmap.description}</p>
+                </>
               )}
 
               {isLoading ? ( // Show loading indicator
