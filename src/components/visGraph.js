@@ -9,9 +9,6 @@ import { DataSet, Network } from "vis-network/standalone/esm/vis-network";
 
 const VisGraph = ( {onClickFunction, roadmap, nodesList, edgesList} ) => {
 
-  console.log("INVISGRAPH", nodesList, edgesList);
-  setInterval(50, () => console.log(nodesList, edgesList));
-
   const visJsRef = useRef(null);
 
 
