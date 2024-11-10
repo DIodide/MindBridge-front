@@ -10,7 +10,7 @@ import VisGraph from './visGraph'
 import { DataSet, Network } from "vis-network/standalone/esm/vis-network";
 import { generateNodeInfo, getRoadmap } from '@/app/actions'
 const tags = []
-
+import { useToast } from '@/hooks/use-toast';
 
 
 const initialContent = [
@@ -63,7 +63,7 @@ const LearningDashboard = () => {
   const [isLoading, setIsLoading] = useState(true); // Add loading state
   let activeNodeID = null;
 
-
+  const { toast } = useToast()
 
 
 
@@ -288,7 +288,13 @@ const LearningDashboard = () => {
                 <Button variant="ghost" size="icon" onClick={toggleBookmarksView}>
                   <Edit3 className="h-4 w-4 text-purple-300" />
                 </Button>
-                <Button variant="ghost" size="icon" onClick={() => console.log("Link clicked")}>
+                <Button variant="ghost" size="icon" onClick={() => {
+                  toast({
+                    
+          title: "Sharable roadmap link copied to clipboard",
+          description: "Press CTRL-V to Paste",
+        })
+      }}>
                   <Link className="h-4 w-4 text-purple-300" />
                 </Button>
                 <Button variant="ghost" size="icon" onClick={toggleFullscreenCollapse}>
