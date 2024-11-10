@@ -1,5 +1,7 @@
 'use client'
 
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 import React, { useEffect, useState } from 'react'
 import { Card, CardContent, CardHeader, CardTitle, CardFooter } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
@@ -29,13 +31,6 @@ const updateContent = [
         content: 'Write a React component that implements a counter with increment and decrement buttons.'
     },
     
-    {
-    type: 'video',
-    title: 'Tutorial',
-    completed: false,
-    bookmarked: false,
-    content: 'https://example.com/intro-to-react-video'
-},
   {
     type: 'article',
     title: 'Example',
@@ -101,14 +96,7 @@ const LearningDashboard = () => {
         bookmarked: false,
         content: nodeInfo.summary,
     },
-    
-    {
-    type: 'video',
-    title: 'Tutorial',
-    completed: false,
-    bookmarked: false,
-    content: 'https://example.com/intro-to-react-video'
-},
+
   {
     type: 'article',
     title: 'Example',
@@ -217,14 +205,14 @@ const LearningDashboard = () => {
       label: node.topicName,
       title: node.shortDescription,
       // color: node.completed ? 'green' : node.skipped ? 'orange' : 'blue'
-      color: {
-        border: '#FFFFFF', // White border for better contrast
-        background: '#4285F4', // A darker purple for a more modern look
-        highlight: {
-          border: '#FFFFFF',
-          background: '#B93CF6', // A brighter purple on hover
-        },
-      },
+      // color: {
+      //   border: '#FFFFFF', // White border for better contrast
+      //   background: '#4285F4', // A darker purple for a more modern look
+      //   highlight: {
+      //     border: '#FFFFFF',
+      //     background: '#B93CF6', // A brighter purple on hover
+      //   },
+      // },
       borderWidth: 3,
       // shadow: { enabled: true, color: "orange", size: 10 },
     }))
@@ -236,6 +224,7 @@ const LearningDashboard = () => {
       to: node.target
     }))
   ) : new DataSet([]); // Initialize with empty DataSet if roadmap is null
+
 
   // ... rest of your component
 
@@ -253,12 +242,8 @@ const LearningDashboard = () => {
           <Bookmark className="h-4 w-4" />
         </Button>
         <h3 className="text-xl font-semibold text-purple-300 mb-2">{item.title}</h3>
-        {/*{item.type === 'video' && (
-          <div className="aspect-w-16 aspect-h-9 mb-2">
-            <iframe src={item.content} className="w-full h-full rounded" allowFullScreen></iframe>
-          </div>
-        )}*/}
-         <p className="text-gray-300 mb-2">{item.content}</p> 
+        
+         <p className="text-gray-300 mb-2"><ReactMarkdown remarkPlugins={[remarkGfm]}>{item.content}</ReactMarkdown></p> 
     <div className="flex justify-between mt-4">
           {/* <Button 
             onClick={() => handleComplete(index)} 
@@ -351,9 +336,17 @@ const LearningDashboard = () => {
         <div className={`transition-all duration-300 ease-in-out ${isCollapsed ? 'w-0' : 'w-3/4'} bg-gray-800 rounded-r-2xl p-8 relative overflow-hidden`}>
         {!isCollapsed && (
             <>
-              <h1 className="text-4xl font-bold text-purple-300 mb-4">Main Learning Area</h1>
               {isLoading ? ( // Show loading indicator
-                <p className='text-white'>Loading roadmap...</p> 
+                <h1 className="text-4xl font-bold text-purple-300 mb-4">LOADING...</h1>
+              ) : (
+                <>
+                <h1 className="text-4xl font-bold text-purple-300 mb-4">{roadmap.title}</h1>
+                <p className="text-gray-300 mb-4">{roadmap.description}</p>
+                </>
+              )}
+
+              {isLoading ? ( // Show loading indicator
+                <p className='text-white'></p> 
               ) : (
                 <VisGraph
                   onClickFunction={onClickSetActiveNodeID}
