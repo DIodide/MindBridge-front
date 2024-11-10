@@ -3,7 +3,7 @@ import { motion } from 'framer-motion'
 import { useState } from 'react'
 import Link from 'next/link'
 
-import { TypewriterEffect } from "@/components/ui/typewriter-effect"
+import { TypewriterEffectSmooth } from "@/components/ui/typewriter-effect"
 
 
 export default function TitleCard() {
@@ -12,36 +12,32 @@ export default function TitleCard() {
 
   const words = [
     {
-      text: "A",
-      className: "text-blue-700 dark:text-blue-500",
+      text: "Bridging",
+      className: "text-white",
     },
     {
-      text: "hackathon",
-      className: "text-blue-700 dark:text-blue-500",
+      text: "the",
+      className: "text-white",
     },
     {
-      text: "for",
-      className: "text-blue-700 dark:text-blue-500",
+      text: "gap",
+      className: "text-white",
     },
     {
-      text: "high",
-      className: "text-blue-700 dark:text-blue-500",
+      text: "to",
+      className: "text-white",
     },
     {
-      text: "schoolers",
-      className: "text-blue-700 dark:text-blue-500",
+      text: "your",
+      className: "text-white",
     },
     {
-      text: "by",
-      className: "text-blue-700 dark:text-blue-500",
+      text: "next",
+      className: "text-white",
     },
     {
-      text: "high",
-      className: "text-blue-700 dark:text-blue-500",
-    },
-    {
-      text: "schoolers.",
-      className: "text-blue-700 dark:text-blue-500",
+      text: "milestone",
+      className: "text-purple-700",
     },
   ];
 
@@ -82,19 +78,20 @@ export default function TitleCard() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4 }}
         >
-          Mind Bridge
+          MindBridge
         </motion.h1>
-        <div className="shadow-2xl border-2 border-blue-800 rounded-xl mx-10 gap-5 flex flex-col items-center justify-center ">
-        <TypewriterEffect words={words} />
-</div>
+        
         <motion.p
-          className="text-xl md:text-2xl mb-8 text-purple-100"
+          className="text-xl md:text-xl mb-8 text-purple-100"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.6 }}
         >
-         Bridging the gap to your next milestone
+          <TypewriterEffectSmooth words={words} className={"w-full"} />
         </motion.p>
+
+        
+        
         
         <Link href="/start">
         <motion.button
