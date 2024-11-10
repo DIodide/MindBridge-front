@@ -93,7 +93,7 @@ export default function TitleCard() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.6 }}
         >
-          Connect your thoughts, expand your horizons, and bridge the gap between imagination and reality.
+         Bridging the gap to your next milestone
         </motion.p>
         
         <Link href="/start">
