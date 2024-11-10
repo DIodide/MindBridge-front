@@ -3,9 +3,47 @@ import { motion } from 'framer-motion'
 import { useState } from 'react'
 import Link from 'next/link'
 
+import { TypewriterEffect } from "@/components/ui/typewriter-effect"
+
 
 export default function TitleCard() {
   const [isHovered, setIsHovered] = useState(false)
+
+
+  const words = [
+    {
+      text: "A",
+      className: "text-blue-700 dark:text-blue-500",
+    },
+    {
+      text: "hackathon",
+      className: "text-blue-700 dark:text-blue-500",
+    },
+    {
+      text: "for",
+      className: "text-blue-700 dark:text-blue-500",
+    },
+    {
+      text: "high",
+      className: "text-blue-700 dark:text-blue-500",
+    },
+    {
+      text: "schoolers",
+      className: "text-blue-700 dark:text-blue-500",
+    },
+    {
+      text: "by",
+      className: "text-blue-700 dark:text-blue-500",
+    },
+    {
+      text: "high",
+      className: "text-blue-700 dark:text-blue-500",
+    },
+    {
+      text: "schoolers.",
+      className: "text-blue-700 dark:text-blue-500",
+    },
+  ];
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-black p-4">
@@ -46,6 +84,9 @@ export default function TitleCard() {
         >
           Mind Bridge
         </motion.h1>
+        <div className="shadow-2xl border-2 border-blue-800 rounded-xl mx-10 gap-5 flex flex-col items-center justify-center ">
+        <TypewriterEffect words={words} />
+</div>
         <motion.p
           className="text-xl md:text-2xl mb-8 text-purple-100"
           initial={{ opacity: 0, y: 20 }}
