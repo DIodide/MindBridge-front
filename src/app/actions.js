@@ -40,6 +40,12 @@ const RoadmapSchema = z.object({
   edges: z.array(EdgeSchema), // Array of edges connecting nodes
 });
 
+const NodeInfoSchema = z.object({
+  summary: z.string(),
+  example: z.string(),
+  learnMoreInformation: z.string(),
+})
+
 export async function generateTopics(goal, maxTopics=10) {
   try {
       (await cookies()).set('goal', JSON.stringify(goal))
@@ -82,6 +88,33 @@ export async function generateRoadmap(preferences) {
       cookieStore.set('roadmap', JSON.stringify(parsed_response))
     
      
+  } catch (error) {
+      console.error('Error sending ChatGPT request:', error);
+      console.log("MyAPIKEY: " + config.OPENAI_API_KEY)
+    throw error; // Re-throw the error to handle it in the frontend
+  }
+}
+
+export async function generateNodeInfo(topic, description) { 
+  const cookieStore = await cookies();
+  const goal = cookieStore.get('goal')
+  const goalData = JSON.parse(decodeURIComponent(goal.value))
+  console.log("goal data: " + goal)
+
+  try {
+    const response = await openai.chat.completions.create({
+      model: 'gpt-4o', // Or a more suitable model // change to gpt-4o for pitch
+        messages: [
+        { role: 'system', content: `You are helping users build a learning roadmap. You have already provided a roadmap to the user for the given goal: ${goalData}`  },
+            { role: 'user', content: `Generate a learning roadmap for ${topic}, the description of the node you previously gave was ${description}. You should provide me a summary with some information about the given topic, an example usage that is in context of the given topic, and advice on what resources or avenues I should explore to learn more, this can be either online or other general resources depending on the topic at hand` },
+        ],
+        response_format: zodResponseFormat(NodeInfoSchema, "info"), // Use zodResponseFormat
+      temperature: 0.7, // Adjust for creativity
+    });
+    
+    const parsed_response = JSON.parse(response.choices[0].message.content);
+      //console.log("The response: " + JSON.stringify(response))
+      return parsed_response;
   } catch (error) {
       console.error('Error sending ChatGPT request:', error);
       console.log("MyAPIKEY: " + config.OPENAI_API_KEY)
