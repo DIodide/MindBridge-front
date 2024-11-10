@@ -116,8 +116,8 @@ const LearningDashboard = () => {
 ]
     setContent(updateContent)
     console.log(content)
-    setIsCompleteClicked(false);
-    setIsSkipClicked(false);
+    // setIsCompleteClicked(false);
+    // setIsSkipClicked(false);
   }
 
   const toggleCollapse = () => setIsCollapsed(!isCollapsed)
@@ -128,7 +128,7 @@ const LearningDashboard = () => {
     setIsCollapsed(!isCollapsed)
   }
   const handleComplete = () => {
-    setIsCompleteClicked(true);
+    // setIsCompleteClicked(true);
     if(activeNodeID) {
         // Find the node with the given nodeId and update its skipped value to true
         const node = roadmap.nodes.find(node => node.id === activeNodeID);
@@ -137,7 +137,7 @@ const LearningDashboard = () => {
           node.completed = true;  // Set skipped to true for the found node
 
           // Update the node in the vis.DataSet (assuming nodes is a vis.DataSet object)
-          nodesList.update({
+          nodesList.updateOnly({
             id: activeNodeID,  // Ensure we're updating the correct node
             completed: true,  // Set skipped to true
             color: 'green'  // Optionally, change the color to indicate the node is skipped
@@ -309,7 +309,7 @@ const LearningDashboard = () => {
               {renderContent()}
             </CardContent>
 
-            {isActiveNodeIdValid(activeNodeID) &&
+            {true &&
         
             <CardFooter className="flex justify-between mt-4">
             <Button
